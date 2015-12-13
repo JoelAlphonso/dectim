@@ -47,7 +47,9 @@ add_filter("nav_menu_item_id", "EnleverClassId");
 function AjouterCssJs()
 {
 	#index.js
-	wp_register_script("mon_script", get_template_directory_uri() . "/js/index.js");
+	wp_register_script("mon_script",
+		get_template_directory_uri() . "/js/index.js",
+		array('jquery'));
 	wp_enqueue_script("mon_script");
 	
 	#Autoriser le Ajax
