@@ -1,12 +1,19 @@
 <?php /* Template Name: Flexible Content Page */ ?>
 
-<?php get_header();
+<?php get_header(); ?>
 
-if( have_rows('title') ):
+<section>
+	
+<?php
 
-	// Code Here...
+if( get_field('title') ): ?>
 
-else:
+	<div class="secHeader">
+		<div><p><?php the_field('title'); ?></p></div>
+		<h1>As-tu le profil ?</h1>
+	</div>
+
+<?php else:
 
 	// No title
 
@@ -24,5 +31,9 @@ endif;
 
 get_template_part("flex_content_loop");
 
-get_footer(); ?>
+?>
+
+</section>
+
+<?php get_footer(); ?>
 

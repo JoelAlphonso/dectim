@@ -109,7 +109,7 @@ a.small {
   padding: 23px 25px;
 }
 
-.boxH1, .carrousel h1, body.contenu section.sec1 .secHeader h1, body.contenu section.sec2 h1 {
+.boxH1, .carrousel h1, body.contenu section:nth-child(2) .secHeader h1, body.contenu section:nth-child(3) h1 {
   background-color: #25363f;
   display: table;
   font-size: 48px;
@@ -117,13 +117,13 @@ a.small {
   padding: 25px 3.1% 25px 3.1%;
 }
 @media screen and (min-width: 960px) {
-  .boxH1, .carrousel h1, body.contenu section.sec1 .secHeader h1, body.contenu section.sec2 h1 {
+  .boxH1, .carrousel h1, body.contenu section:nth-child(2) .secHeader h1, body.contenu section:nth-child(3) h1 {
     font-size: 70px;
     font-size: 4.375rem;
   }
 }
 @media screen and (min-width: 640px) {
-  .boxH1, .carrousel h1, body.contenu section.sec1 .secHeader h1, body.contenu section.sec2 h1 {
+  .boxH1, .carrousel h1, body.contenu section:nth-child(2) .secHeader h1, body.contenu section:nth-child(3) h1 {
     padding: 25px 120px 25px 3.1%;
   }
 }
@@ -706,16 +706,16 @@ header nav ul li:hover {
 /******************************
 	Page de contenu
 ******************************/
-body.contenu section.sec1 {
+body.contenu section:nth-child(2) {
   padding-top: 20%;
   height: 140vh;
   background-color: #d8d8d8;
 }
-body.contenu section.sec1 .secHeader {
+body.contenu section:nth-child(2) .secHeader {
   text-align: center;
   width: 100%;
 }
-body.contenu section.sec1 .secHeader div {
+body.contenu section:nth-child(2) .secHeader div {
   width: 30%;
   margin: 0 35%;
   padding: 20px;
@@ -729,7 +729,7 @@ body.contenu section.sec1 .secHeader div {
   transform: skew(-5deg, 0deg);
   background-color: #fb6542;
 }
-body.contenu section.sec1 .secHeader div p {
+body.contenu section:nth-child(2) .secHeader div p {
   -ms-transform: skewX(5deg);
   /* IE 9 */
   -webkit-transform: skewX(5deg);
@@ -740,22 +740,22 @@ body.contenu section.sec1 .secHeader div p {
   padding: 10px 0;
   font-weight: 300;
 }
-body.contenu section.sec1 .secHeader div p span {
+body.contenu section:nth-child(2) .secHeader div p span {
   font-weight: 700;
 }
-body.contenu section.sec1 .secHeader h1 {
+body.contenu section:nth-child(2) .secHeader h1 {
   padding: 25px 0;
   text-align: center;
   width: 50%;
   margin: 0 25%;
   font-weight: 700;
 }
-body.contenu section.sec1 .secContent {
+body.contenu section:nth-child(2) .secContent {
   width: 65%;
   margin: 5% 0;
   margin-left: 15%;
 }
-body.contenu section.sec1 .secContent #bracket {
+body.contenu section:nth-child(2) .secContent #bracket {
   position: absolute;
   right: 12%;
   top: 52%;
@@ -763,51 +763,19 @@ body.contenu section.sec1 .secContent #bracket {
   font-size: 14rem;
   font-weight: 400;
 }
-body.contenu section.sec1 .tudiv {
-  width: 100%;
-  margin-top: 10%;
-}
-body.contenu section.sec1 .tudiv div:hover {
-  background-color: #121a1f;
-}
-body.contenu section.sec1 .tudiv div:hover p {
-  color: white;
-}
-body.contenu section.sec1 .tudiv div:hover p span {
-  font-size: 2rem;
-  font-weight: 900;
-}
-body.contenu section.sec1 .tudiv div {
-  width: 80%;
-  margin: 0 10%;
-  margin-top: 5px;
-  padding: 10px 20px;
-  background-color: #f2f2f2;
-  border-bottom: 5px solid #fb6542;
-}
-body.contenu section.sec1 .tudiv div p {
-  color: black;
-  font-weight: 400;
-  vertical-align: text-bottom;
-}
-body.contenu section.sec1 .tudiv div p span {
-  vertical-align: none;
-  font-size: 2rem;
-  font-weight: 900;
-}
-body.contenu section.sec1 .bgEle > div:first-of-type {
+body.contenu section:nth-child(2) .bgEle > div:first-of-type {
   background-color: #fb6542;
 }
-body.contenu section.sec1 .bgEle > div:last-of-type {
+body.contenu section:nth-child(2) .bgEle > div:last-of-type {
   background-color: #fa3c10;
 }
-body.contenu section.sec1 .triangle {
+body.contenu section:nth-child(2) .triangle {
   margin-top: 11%;
   width: 100%;
   height: 20vh;
   overflow: hidden;
 }
-body.contenu section.sec1 .triangle #tri1 {
+body.contenu section:nth-child(2) .triangle #tri1 {
   left: 0;
   width: 0;
   height: 0;
@@ -816,11 +784,11 @@ body.contenu section.sec1 .triangle #tri1 {
   border-width: 20vh 0 0 99vw;
   border-color: transparent transparent transparent #fb6542;
 }
-body.contenu section.sec2 {
+body.contenu section:nth-child(3) {
   height: 80vh;
   background-color: white;
 }
-body.contenu section.sec2 h1 {
+body.contenu section:nth-child(3) h1 {
   padding: 10px 0;
   text-align: center;
   width: 50%;
@@ -830,34 +798,34 @@ body.contenu section.sec2 h1 {
   font-weight: 700;
   position: absolute;
 }
-body.contenu section.sec2 .secContent {
+body.contenu section:nth-child(3) .secContent {
   padding-top: 100px;
   width: 100%;
 }
-body.contenu section.sec2 .secContent p {
+body.contenu section:nth-child(3) .secContent p {
   text-align: center;
   width: 100%;
   margin-bottom: 100px;
 }
-body.contenu section.sec2 .secContent a {
+body.contenu section:nth-child(3) .secContent a {
   text-align: center;
   background-color: #fb6542;
   padding: 10px 2.5%;
   font-size: 2rem;
 }
-body.contenu section.sec2 .links {
+body.contenu section:nth-child(3) .links {
   padding-top: 100px;
 }
-body.contenu section.sec2 .links p {
+body.contenu section:nth-child(3) .links p {
   text-align: center;
 }
-body.contenu section.sec2 .links p a {
+body.contenu section:nth-child(3) .links p a {
   text-align: center;
   background-color: #25363f;
   padding: 20px 5%;
   font-size: 2rem;
 }
-body.contenu section.sec2 .links p a:hover {
+body.contenu section:nth-child(3) .links p a:hover {
   text-align: center;
   background-color: #fb6542;
   font-size: 2rem;
@@ -1014,4 +982,37 @@ footer .content ul #Dicon:hover {
 }
 footer .content ul .logos {
   background-color: red;
+}
+
+.tudiv {
+  width: 100%;
+  margin-top: 10%;
+}
+.tudiv div:hover {
+  background-color: #121a1f;
+}
+.tudiv div:hover p {
+  color: white;
+}
+.tudiv div:hover p span {
+  font-size: 2rem;
+  font-weight: 900;
+}
+.tudiv div {
+  width: 80%;
+  margin: 0 10%;
+  margin-top: 5px;
+  padding: 10px 20px;
+  background-color: #f2f2f2;
+  border-bottom: 5px solid #fb6542;
+}
+.tudiv div p {
+  color: black;
+  font-weight: 400;
+  vertical-align: text-bottom;
+}
+.tudiv div p span {
+  vertical-align: none;
+  font-size: 2rem;
+  font-weight: 900;
 }
