@@ -39,14 +39,7 @@
 			</a>
 		</div>
 		<nav id='menu'>
-			<ul>
-				<li><a href='index.html'><h3>Accueil</h3></a></li>
-				<li><a href='index.html'><h3>Programme</h3></a></li>
-				<li><a href='index.html'><h3>Université</h3></a></li>
-				<li><a href='index.html'><h3>Finissant</h3></a></li>
-				<li><a href='index.html'><h3>Stage</h3></a></li>
-				<li><a href='index.html'><h3>Enseignant</h3></a></li>
-			</ul>
+			 <?php wp_nav_menu('nav'); ?>
 		</nav>
 	</div>
 </header>
