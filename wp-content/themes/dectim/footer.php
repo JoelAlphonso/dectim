@@ -11,7 +11,7 @@
 						<li id='Dicon'><a href=''><h3>DEVIANTART</h3></a></li>
 					</ul>
 				</div>
-				<div class='logos' style='float:right; margin-right:10%;'>
+				<div class='logos'>
 				<a href='http://www.cegepmontpetit.ca/'>
 					<img src="<?php bloginfo("template_url")?>/img/dectimlogo.png" alt='TimEdouard'>
 					</a>
