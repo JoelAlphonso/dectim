@@ -19,7 +19,7 @@ Description: Description
 }
 
 body {
-  font-family: "Avalon Plain", "Roboto", sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 16px;
   font-size: 1rem;
   color: #ef6100;
@@ -109,7 +109,7 @@ a.small {
   padding: 23px 25px;
 }
 
-.boxH1, .carrousel h1, body.contenu section.sec1 .secHeader h1, body.contenu section.sec2 h1 {
+.boxH1, .carrousel h1, body.contenu section .secHeader h1, .tp-title {
   background-color: #25363f;
   display: table;
   font-size: 48px;
@@ -117,15 +117,24 @@ a.small {
   padding: 25px 3.1% 25px 3.1%;
 }
 @media screen and (min-width: 960px) {
-  .boxH1, .carrousel h1, body.contenu section.sec1 .secHeader h1, body.contenu section.sec2 h1 {
+  .boxH1, .carrousel h1, body.contenu section .secHeader h1, .tp-title {
     font-size: 70px;
     font-size: 4.375rem;
   }
 }
 @media screen and (min-width: 640px) {
-  .boxH1, .carrousel h1, body.contenu section.sec1 .secHeader h1, body.contenu section.sec2 h1 {
+  .boxH1, .carrousel h1, body.contenu section .secHeader h1, .tp-title {
     padding: 25px 120px 25px 3.1%;
   }
+}
+
+.overflowhidden {
+  overflow: hidden;
+}
+
+body.Accueil > main:nth-last-of-type(1), body.contenu > section:nth-last-of-type(1) {
+  padding-bottom: 33vh;
+  margin-bottom: -33vh;
 }
 
 /******************************
@@ -237,6 +246,9 @@ header nav {
   z-index: 4;
   top: 150px;
 }
+header nav .menu-nav-container {
+  width: 100%;
+}
 header nav ul {
   width: 100%;
   list-style-type: none;
@@ -255,7 +267,7 @@ header nav ul li {
   width: 100%;
   padding: 20px 20px;
   display: inline-block;
-  background-color: #162026;
+  background-color: #1c282f;
   margin: 0;
 }
 header nav ul li h3 {
@@ -263,7 +275,7 @@ header nav ul li h3 {
   font-weight: 200;
 }
 header nav ul li:hover {
-  background-color: #1d2a33;
+  background-color: #38525f;
 }
 
 @media screen and (max-width: 1000px) {
@@ -706,16 +718,22 @@ header nav ul li:hover {
 /******************************
 	Page de contenu
 ******************************/
-body.contenu section.sec1 {
+body.contenu section {
+  position: relative;
+  z-index: 0;
+}
+body.contenu section:nth-child(2) {
   padding-top: 20%;
-  height: 140vh;
   background-color: #d8d8d8;
 }
-body.contenu section.sec1 .secHeader {
+body.contenu section:nth-child(n+3) {
+  background-color: white;
+}
+body.contenu section .secHeader {
   text-align: center;
   width: 100%;
 }
-body.contenu section.sec1 .secHeader div {
+body.contenu section .secHeader div {
   width: 30%;
   margin: 0 35%;
   padding: 20px;
@@ -729,7 +747,7 @@ body.contenu section.sec1 .secHeader div {
   transform: skew(-5deg, 0deg);
   background-color: #fb6542;
 }
-body.contenu section.sec1 .secHeader div p {
+body.contenu section .secHeader div p {
   -ms-transform: skewX(5deg);
   /* IE 9 */
   -webkit-transform: skewX(5deg);
@@ -740,127 +758,49 @@ body.contenu section.sec1 .secHeader div p {
   padding: 10px 0;
   font-weight: 300;
 }
-body.contenu section.sec1 .secHeader div p span {
+body.contenu section .secHeader div p span {
   font-weight: 700;
 }
-body.contenu section.sec1 .secHeader h1 {
+body.contenu section .secHeader h1 {
   padding: 25px 0;
   text-align: center;
   width: 50%;
   margin: 0 25%;
   font-weight: 700;
 }
-body.contenu section.sec1 .secContent {
+body.contenu section .secContent {
   width: 65%;
-  margin: 5% 0;
-  margin-left: 15%;
+  margin: 0 auto;
 }
-body.contenu section.sec1 .secContent #bracket {
-  position: absolute;
-  right: 12%;
-  top: 52%;
-  color: #fb6542;
-  font-size: 14rem;
-  font-weight: 400;
-}
-body.contenu section.sec1 .tudiv {
-  width: 100%;
-  margin-top: 10%;
-}
-body.contenu section.sec1 .tudiv div:hover {
-  background-color: #121a1f;
-}
-body.contenu section.sec1 .tudiv div:hover p {
-  color: white;
-}
-body.contenu section.sec1 .tudiv div:hover p span {
-  font-size: 2rem;
-  font-weight: 900;
-}
-body.contenu section.sec1 .tudiv div {
-  width: 80%;
-  margin: 0 10%;
-  margin-top: 5px;
-  padding: 10px 20px;
-  background-color: #f2f2f2;
-  border-bottom: 5px solid #fb6542;
-}
-body.contenu section.sec1 .tudiv div p {
-  color: black;
-  font-weight: 400;
-  vertical-align: text-bottom;
-}
-body.contenu section.sec1 .tudiv div p span {
-  vertical-align: none;
-  font-size: 2rem;
-  font-weight: 900;
-}
-body.contenu section.sec1 .bgEle > div:first-of-type {
+body.contenu section .bgEle > div:first-of-type {
   background-color: #fb6542;
 }
-body.contenu section.sec1 .bgEle > div:last-of-type {
+body.contenu section .bgEle > div:last-of-type {
   background-color: #fa3c10;
 }
-body.contenu section.sec1 .triangle {
-  margin-top: 11%;
-  width: 100%;
-  height: 20vh;
-  overflow: hidden;
+body.contenu section .triangleContainer {
+  position: relative;
+  z-index: -1;
+  height: 150px;
 }
-body.contenu section.sec1 .triangle #tri1 {
-  left: 0;
+body.contenu section .triangle {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+}
+body.contenu section .triangle > div {
   width: 0;
   height: 0;
   border-style: solid;
   z-index: 3;
-  border-width: 20vh 0 0 99vw;
-  border-color: transparent transparent transparent #fb6542;
 }
-body.contenu section.sec2 {
-  height: 80vh;
-  background-color: white;
+body.contenu section .triangle:first-of-type > div {
+  border-width: 388px 0 0 99vw;
+  border-color: transparent transparent transparent #fa3c10;
 }
-body.contenu section.sec2 h1 {
-  padding: 10px 0;
-  text-align: center;
-  width: 50%;
-  margin: 0 25%;
-  margin-top: -40px;
-  font-size: 3rem;
-  font-weight: 700;
-  position: absolute;
-}
-body.contenu section.sec2 .secContent {
-  padding-top: 100px;
-  width: 100%;
-}
-body.contenu section.sec2 .secContent p {
-  text-align: center;
-  width: 100%;
-  margin-bottom: 100px;
-}
-body.contenu section.sec2 .secContent a {
-  text-align: center;
-  background-color: #fb6542;
-  padding: 10px 2.5%;
-  font-size: 2rem;
-}
-body.contenu section.sec2 .links {
-  padding-top: 100px;
-}
-body.contenu section.sec2 .links p {
-  text-align: center;
-}
-body.contenu section.sec2 .links p a {
-  text-align: center;
-  background-color: #25363f;
-  padding: 20px 5%;
-  font-size: 2rem;
-}
-body.contenu section.sec2 .links p a:hover {
-  text-align: center;
-  background-color: #fb6542;
-  font-size: 2rem;
+body.contenu section .triangle:last-of-type > div {
+  border-width: 0 0 388px 99vw;
+  border-color: transparent transparent #fb6542 transparent;
 }
 
 /******************************
@@ -936,7 +876,7 @@ body.contenu section.sec2 .links p a:hover {
 footer {
   width: 100%;
   background: #385260;
-  padding-bottom: 300px;
+  margin-top: 50vh;
 }
 footer .footerBack {
   position: absolute;
@@ -950,9 +890,9 @@ footer .footerBack:after {
   display: block;
   width: 0;
   height: 0;
-  margin-top: -300px;
-  border-right: 95vw solid transparent;
-  border-bottom: 300px solid #273A42;
+  margin-top: -49.5vh;
+  border-right: 55vw solid transparent;
+  border-bottom: 50vh solid #273A42;
 }
 footer .footerFront {
   position: absolute;
@@ -966,13 +906,24 @@ footer .footerFront:after {
   display: block;
   width: 0;
   height: 0;
-  margin-top: -300px;
-  border-top: 300px solid transparent;
+  margin-top: -49.5vh;
+  border-top: 50vh solid transparent;
   float: right;
   border-right: 99vw solid #385260;
 }
 footer .content {
   width: 100%;
+  position: relative;
+  height: 30vh;
+}
+footer .content .sociaux {
+  position: absolute;
+  margin-top: -45vh;
+}
+footer .content .logos {
+  position: absolute;
+  bottom: 75px;
+  right: 75px;
 }
 footer .content ul {
   height: 500px;
@@ -991,7 +942,7 @@ footer .content ul {
 }
 footer .content ul li {
   z-index: 0;
-  margin: 10px 0;
+  margin: 5px 0;
   padding: 10px 50px;
   background-color: #fb6542;
   color: white;
@@ -1012,6 +963,332 @@ footer .content ul #Licon:hover {
 footer .content ul #Dicon:hover {
   background-color: #05cc47;
 }
-footer .content ul .logos {
-  background-color: red;
+
+/* --------------------------
+Template Parts
+-------------------------- */
+.tp-title {
+  padding: 10px 0;
+  text-align: center;
+  width: 77%;
+  margin: 0 auto;
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  transform: translateY(-50%);
+  font-size: 70px;
+  font-size: 4.375rem;
+  font-weight: 700;
+  position: relative;
+}
+
+.tp-links {
+  margin: 50px 0;
+  text-align: center;
+}
+.tp-links a {
+  display: inline-block;
+  text-align: center;
+  background-color: #25363f;
+  padding: 20px 5%;
+  font-size: 2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.tp-links a:hover {
+  background-color: #fb6542;
+}
+
+.tp-text {
+  width: 100%;
+  margin: 50px 0;
+}
+.tp-text.centered {
+  text-align: center;
+}
+.tp-text.rightBracket, .tp-text.leftBracket {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  -moz-align-items: center;
+  align-items: center;
+}
+.tp-text.rightBracket::after, .tp-text.rightBracket::before, .tp-text.leftBracket::after, .tp-text.leftBracket::before {
+  color: #fb6542;
+  font-size: 14rem;
+  font-weight: 400;
+  font-family: "Roboto", sans-serif;
+}
+.tp-text.rightBracket::after {
+  content: "}";
+  margin-left: 20px;
+}
+.tp-text.leftBracket::before {
+  content: "{";
+  margin-right: 20px;
+}
+
+.tp-box-list {
+  width: 100%;
+  margin-top: 10%;
+}
+.tp-box-list div:hover {
+  background-color: #1c282f;
+}
+.tp-box-list div:hover p {
+  color: white;
+}
+.tp-box-list div:hover p span {
+  font-size: 2rem;
+  font-weight: 900;
+}
+.tp-box-list div {
+  width: 80%;
+  margin: 0 10%;
+  margin-top: 5px;
+  padding: 10px 20px;
+  background-color: #f2f2f2;
+  border-bottom: 5px solid #fb6542;
+}
+.tp-box-list div p {
+  color: black;
+  font-weight: 400;
+  vertical-align: text-bottom;
+}
+.tp-box-list div p span {
+  vertical-align: none;
+  font-size: 2rem;
+  font-weight: 900;
+}
+
+/* --------------------------
+overlay
+-------------------------- */
+.overlay {
+  overflow: auto;
+  height: 100vh;
+  width: 100vw;
+  background: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  z-index: 10;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  -moz-justify-content: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  -moz-align-items: center;
+  align-items: center;
+  opacity: 0;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-transition: opacity 0.3s;
+  -moz-transition: opacity 0.3s;
+  -ms-transition: opacity 0.3s;
+  -o-transition: opacity 0.3s;
+  transition: opacity 0.3s;
+}
+.overlay > div.overlayOverflow {
+  max-height: 100%;
+  overflow: auto;
+  width: 100%;
+}
+.overlay > div.overlayExit {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.overlay.hidden {
+  visibility: hidden;
+}
+
+.overlay.visible {
+  visibility: visible;
+  opacity: 1;
+}
+
+.overlayContent {
+  max-height: 60%;
+  max-width: 60%;
+  margin-left: 20%;
+  margin-right: 20%;
+  background-color: #d8d8d8;
+  position: relative;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1 1 auto;
+  -moz-box-flex: 1;
+  -moz-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+}
+
+.overlayContent > span.overlayExit {
+  width: 96px;
+  height: 96px;
+  position: absolute;
+  z-index: 10;
+  background-color: #1c282f;
+  top: 0;
+  left: 0;
+  cursor: pointer;
+}
+.overlayContent > span.overlayExit:hover > span > span {
+  height: 15px;
+  width: 2px;
+}
+
+.overlayContent > span.overlayExit > span {
+  -moz-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+.overlayContent > span.overlayExit > span > span {
+  height: 2px;
+  width: 15px;
+  background-color: #d8d8d8;
+  display: block;
+  -moz-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+  -webkit-transition: height 0.3s, width 0.3s;
+  -moz-transition: height 0.3s, width 0.3s;
+  -ms-transition: height 0.3s, width 0.3s;
+  -o-transition: height 0.3s, width 0.3s;
+  transition: height 0.3s, width 0.3s;
+}
+.overlayContent > span.overlayExit > span:last-of-type > span {
+  -moz-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+}
+
+.overlayContent > .content > * {
+  max-width: 100%;
+  display: block;
+}
+
+.overlayContent > .content {
+  background-color: White;
+}
+.overlayContent > .content h1 {
+  background-color: #1c282f;
+  text-align: Center;
+  width: 60%;
+  margin: 0 25%;
+  margin-top: -25px;
+  position: absolute;
+  z-index: 3;
+  padding: 20px 0;
+}
+.overlayContent > .content div {
+  width: 100%;
+  height: 300px;
+  overflow: hidden;
+}
+.overlayContent > .content div .marc {
+  margin-top: 80px;
+  font-weight: 900;
+}
+.overlayContent > .content div h2 {
+  font-weight: 200;
+  padding: 5px;
+  margin-top: 10px;
+  color: white;
+  width: 60%;
+  margin-left: 20%;
+  margin-right: 20%;
+  background-color: #fb6542;
+  width: auto;
+}
+.overlayContent > .content div p {
+  text-decoration: underline;
+  color: grey;
+  font-size: 0.8rem;
+  width: 60%;
+  margin: 0 20%;
+  margin-top: 40px;
+}
+.overlayContent > .content div img {
+  width: 100%;
+}
+.overlayContent > .content header {
+  padding: 30px 0;
+  width: 60%;
+  height: 36px;
+  background-color: #1c282f;
+}
+.overlayContent > .content header span {
+  position: absolute;
+  top: 0;
+  right: 100px;
+}
+.overlayContent > .content header span a {
+  position: fixed;
+  margin-left: -200px;
+  margin-top: 40px;
+}
+.overlayContent > .content header span img {
+  height: 50px;
+  width: 50px;
+  margin-bottom: 8px;
+  margin-top: 8px;
+  border-radius: 50%;
+  position: absolute;
+  right: 220px;
+  top: 17px;
+}
+.overlayContent > .content header p {
+  color: White;
+  font-size: 1rem;
+  margin-left: 100px;
+  margin-top: 10px;
+}
+
+.grow-off {
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 1 auto;
+  -moz-box-flex: 0;
+  -moz-flex: 0 1 auto;
+  -ms-flex: 0 1 auto;
+  flex: 0 1 auto;
+  max-height: inherit;
+}
+
+.embed-container {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+  max-width: 100%;
+}
+
+.embed-container iframe, .embed-container object, .embed-container embed {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }

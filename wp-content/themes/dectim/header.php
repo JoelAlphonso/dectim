@@ -14,7 +14,7 @@
 	<?php wp_head(); ?>
 </head>
 
-<body class="Accueil">
+<body class="<?php if(is_front_page()){ echo "Accueil"; }else{ echo "contenu"; }; ?>">
 
 <header>
 	<div class='slideTop'></div>
