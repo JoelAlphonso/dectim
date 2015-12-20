@@ -3,7 +3,7 @@
 // check if the repeater field has rows of data
 if( have_rows('list_item') ): ?>
 
- 	<div class='tudiv'>
+ 	<div class='tp-box-list'>
  	
 	<?php
 
@@ -18,7 +18,7 @@ if( have_rows('list_item') ): ?>
 
     </div>
 
-<?php 
+<?php
 
 else :
 

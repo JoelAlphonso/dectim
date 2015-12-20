@@ -27,32 +27,38 @@ $light-blue: #1b4b73;
 ******************************/
 @mixin Flex(){
 	display: -webkit-flex;
+	display: -ms-flexbox;
 	display: flex;
 }
 
 @mixin FlexDirection($Prop){
 	-webkit-flex-direction: $Prop;
-	flex-direction: $Prop;
+	-ms-flex-direction: $Prop;
+	    flex-direction: $Prop;
 }
 
 @mixin AlignItems($Prop){
 	-webkit-align-items: $Prop;
-	align-items: $Prop;
+	-ms-flex-align: $Prop;
+	    align-items: $Prop;
 }
 
 @mixin JustifyContent($Prop){
 	-webkit-justify-content: $Prop;
-	justify-content: $Prop;
+	-ms-flex-pack: $Prop;
+	    justify-content: $Prop;
 }
 
 @mixin AlignSelf($Prop){
 	-webkit-align-items: $Prop;
-	align-items: $Prop;
+	-ms-flex-align: $Prop;
+	    align-items: $Prop;
 }
 
 @mixin FlexWrap($Prop){
 	-webkit-flex-wrap: $Prop;
-	flex-wrap: $Prop;
+	-ms-flex-wrap: $Prop;
+	    flex-wrap: $Prop;
 }
 
 @mixin SetFont($Size:16, $Weight:"null", $Style:"null"){
@@ -199,27 +205,32 @@ header{
 
 	.logoBox{
 		top:20px;
-		width:150px;
-		height:100px;
+		width:180px;
+		height:115px;
 		display:block;
 		background-color:#455463;
 		position:fixed;
 		z-index:5;
-		left:45%;
-		-ms-transform: skewX(-20deg); /* IE 9 */
-		-webkit-transform: skewX(-20deg); /* Safari */
-		transform: skewX(-20deg); /* Standard syntax */
+		left:50%; /* IE 9 */
+		-webkit-transform: translateX(-50%) skew(-8deg, -3deg); /* Safari */
+		transform: translateX(-50%) skew(-8deg, -3deg); /* Standard syntax */
+		
+		>a{
+			display: block;
+			height: 100%;
+			width: 100%;
+		}
 
 		img{
-			box-sizing:border-box;
-				-ms-transform: skewX(20deg); /* IE 9 */
-				-webkit-transform: skewX(20deg); /* Safari */
-				transform: skewX(20deg); /* Standard syntax */
-				width:50%;
-				position:absolute;
-				margin:25px 25%;
-			}
+			box-sizing:border-box; /* IE 9 */
+			top: 50%;
+			left: 50%;
+			-webkit-transform: translate(-50%, -50%) skew(8deg, 3deg); /* Safari */
+			transform: translate(-50%, -50%) skew(8deg, 3deg); /* Standard syntax */
+			width:130px;
+			position:relative;
 		}
+	}
 
 		.slogan{
 			text-align:right;
@@ -271,16 +282,6 @@ header{
 				z-index:3;
 			}
 
-<<<<<<< HEAD
-		.menu-nav-container{
-		width:100%;
-		ul{
-			width:100%;
-			list-style-type:none;
-			margin:0;
-			padding:0;
-			@include Flex();
-=======
 			.bgHeaderBack:after{
 				content: "";
 				display: block;
@@ -295,11 +296,14 @@ header{
 
 		nav{
 			display: -webkit-flex;
+			display: -ms-flexbox;
 			display: flex;
 			background-color:transparent;
-			margin-left:17.5%;
-			margin-right:17.5%;
-			width:65%;
+			margin-left:auto;
+			margin-right:auto;
+			left: 0;
+			right: 0;
+			width:50%;
 			height:100px;
 			position:fixed;
 			z-index:4;
@@ -315,33 +319,42 @@ header{
 				margin:0;
 				padding:0;
 				@include Flex();
->>>>>>> origin/master
 			//display: -webkit-flex;
 			//display: flex;
 			-webkit-flex-direction: row;
-			flex-direction: row;
+			-ms-flex-direction: row;
+			    flex-direction: row;
 			-webkit-align-items: center;
-			align-items: center;
+			-ms-flex-align: center;
+			    align-items: center;
 			-webkit-justify-content: center;
-			justify-content: center;
+			-ms-flex-pack: center;
+			    justify-content: center;
 
 			li{
-				width:100%;
-				padding:20px 20px;
-				display:inline-block;
+				height: 55px;
+				@include flex(1, 1, auto);
 				background-color: $main-color-dark;
 				margin:0;
+
+				>a{
+					display: block;
+					height: 100%;
+					@include flexbox();
+					@include justify-content(center);
+					@include align-items(center);
+				}
 
 				h3{
 					text-align:center;
 					font-weight:200;
 				}
 			}
-		
+
 			li:hover{
 				background-color: $main-color-light;
 			}
-		}
+
 		}
 	}
 }
@@ -597,7 +610,8 @@ header{
 		aside{
 			position: absolute;
 			top: 50%;
-			transform: translateY(-50%);
+			-webkit-transform: translateY(-50%);
+			        transform: translateY(-50%);
 			z-index: 1;
 		}
 
@@ -621,7 +635,8 @@ header{
 			@include SetFont(208);
 			line-height: 1;
 			margin: 0 30px 15px;
-			transform: translateY(-19px);
+			-webkit-transform: translateY(-19px);
+			        transform: translateY(-19px);
 		}
 
 		@media screen and (min-width: 1300px){
@@ -849,23 +864,29 @@ body.contenu{
 		.secHeader{
 			text-align:center;
 			width:100%;
-			div{
-				width:30%;
-				margin:0 35%;
-				padding:20px;
-			/*	 -ms-transform: skewX(20deg); /* IE 9 */
-			/*	 -webkit-transform: skewX(20deg); /* Safari */
-			/*	 transform: skewX(20deg);*/
-			 	-ms-transform: skew(-5deg, 0deg); /* IE 9 */
-				-webkit-transform: skew(-5deg, 0deg); /* Safari */
-				transform: skew(-5deg, 0deg);
-				background-color:$accent-color;	
+			font-size: 0;
+			>div{
+				max-width:45%;
+				display: inline-block;
+				margin:0 auto;
+				padding:30px 50px 10px 50px;
+				position: relative;
+				overflow: hidden;
+				font-size: 0;
+				
+				>div{
+					background-color:$accent-color;
+					height: 150%;
+					width: 95%;
+					position: absolute;
+					top: 20px;
+					left: 50%;
+					z-index: -1;
+					-webkit-transform: translateX(-50%) skew(-5deg, -2deg);
+					        transform: translateX(-50%) skew(-5deg, -2deg);
+				}
 
 				p{
-					-ms-transform: skewX(5deg); /* IE 9 */
-					-webkit-transform: skewX(5deg); /* Safari */
-					transform: skewX(5deg);
-					background-color:$accent-color;
 					color:white;
 					padding:10px 0;
 					font-weight:300;
@@ -1072,13 +1093,17 @@ footer{
 			margin:0;
 			padding:0;
 			display: -webkit-flex;
+			display: -ms-flexbox;
 			display: flex;
 			-webkit-flex-direction: column;
-			flex-direction: column;
+			-ms-flex-direction: column;
+			    flex-direction: column;
 			-webkit-align-items: flex-start;
-			align-items: flex-start;
+			-ms-flex-align: start;
+			    align-items: flex-start;
 			-webkit-justify-content: center;
-			justify-content: center;
+			-ms-flex-pack: center;
+			    justify-content: center;
 			li{
 				z-index:0;
 				margin:5px 0;
@@ -1123,9 +1148,6 @@ Template Parts
 	width: 77%;
 	margin:0 auto;
 	-webkit-transform: translateY(-50%);
-	-moz-transform: translateY(-50%);
-	-ms-transform: translateY(-50%);
-	-o-transform: translateY(-50%);
 	transform: translateY(-50%);
 	
 	@include font-size(70);
@@ -1144,12 +1166,23 @@ Template Parts
 		text-align:center;
 		background-color:$main-color;
 		padding:20px 5%;
+		margin: 0 5px;
 		font-size:2rem;
 		font-weight: 700;
 		text-transform: uppercase;
-	}
-	a:hover{
-		background-color:$accent-color;
+		
+		&:hover{
+			background-color:$accent-color;
+		}
+
+		&.highlight{
+			background-color:$accent-color;
+
+			&:hover{
+				background-color:$accent-color-full;
+			}
+		}
+
 	}
 }
 
@@ -1164,6 +1197,10 @@ Template Parts
 		text-align:center;
 	}
 
+	>div{
+		width: 100%;
+	}
+
 	&.rightBracket, &.leftBracket{
 		
 		@include flexbox();
@@ -1176,6 +1213,9 @@ Template Parts
 			font-weight:400;
 			font-family: "Roboto", sans-serif;
 		}
+
+
+
 	}
 
 	&.rightBracket::after{
@@ -1186,6 +1226,18 @@ Template Parts
 	&.leftBracket::before{
 		content: "{";
 		margin-right: 20px;
+	}
+
+	.twoCol{
+		-webkit-column-count: 2;
+		   -moz-column-count: 2;
+		        column-count: 2;
+		-webkit-column-gap: 40px;
+		   -moz-column-gap: 40px;
+		        column-gap: 40px;
+		-webkit-column-rule: 5px solid $accent-color;
+		   -moz-column-rule: 5px solid $accent-color;
+		        column-rule: 5px solid $accent-color;
 	}
 
 }
@@ -1209,8 +1261,6 @@ Template Parts
 	}
 	div{ 	
 
-		width:80%;
-		margin:0 10%;
 		margin-top:5px;
 		padding:10px 20px;
 		background-color:#f2f2f2;
@@ -1222,7 +1272,7 @@ Template Parts
 				vertical-align: none;
 				font-size:2rem;
 				font-weight: 900;
-
+				text-transform: uppercase;
 			}
 		}	
 	}
@@ -1243,11 +1293,6 @@ overlay
   @include align-items(center);
   opacity: 0;
   @include flexbox;
-
-  -webkit-transition: opacity 0.3s;
-  -moz-transition: opacity 0.3s;
-  -ms-transition: opacity 0.3s;
-  -o-transition: opacity 0.3s;
   transition: opacity 0.3s;
 
   > div.overlayOverflow {
@@ -1309,10 +1354,6 @@ overlay
     background-color: $light-bg;
     display: block;
     @include rotate(45);
-    -webkit-transition: height 0.3s, width 0.3s;
-    -moz-transition: height 0.3s, width 0.3s;
-    -ms-transition: height 0.3s, width 0.3s;
-    -o-transition: height 0.3s, width 0.3s;
     transition: height 0.3s, width 0.3s;
   }
 
@@ -1390,7 +1431,9 @@ overlay
 			position: fixed;
   			margin-left: -200px;
    			 margin-top: 40px;
-
+			@media screen and (max-width: 960px){
+				display:none;
+			} 
 			}
 		img{
 			height:50px;
@@ -1401,6 +1444,10 @@ overlay
 			position:absolute;
 			    right: 220px;
     top: 17px;
+    	@media screen and (max-width: 960px){
+				
+				right: 0;
+			}
 
 		}}
 		p{

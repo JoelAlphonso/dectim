@@ -9,29 +9,26 @@
 if( get_field('title') ): ?>
 
 	<div class="secHeader">
-		<div><p><?php the_field('title'); ?></p></div>
-		<h1>As-tu le profil ?</h1>
+		
+		<?php if( get_field('sub_title') ): ?>
+		
+		<div>
+			<div class"superTitleBox"></div>
+			<p><?php the_field('sub_title'); ?></p>
+		</div>
+
+		<?php endif;?>
+
+		<h1><?php the_field('title'); ?></h1>
 	</div>
 
-<?php else:
+<?php endif; ?>
 
-	// No title
+	<div class="secContent">
 
-endif;
+<?php get_template_part("flex_content_loop"); ?>
 
-if( have_rows('sub_title') ):
-
-	// Code Here...
-
-else:
-
-	// No title
-
-endif;
-
-get_template_part("flex_content_loop");
-
-?>
+	</div> <!-- fin de secContent -->
 
 </section>
 
