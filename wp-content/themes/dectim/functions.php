@@ -1,5 +1,5 @@
-<?php
-#Activation du support pour les images à la une et définition des grosseurs voulues
+ï»¿<?php
+#Activation du support pour les images Ã  la une et dÃ©finition des grosseurs voulues
 add_image_size("banniere", 1920, 400, true);
 add_image_size("image_a_la_une", 520, 360, true);
 add_image_size("carrousel", 1920, 700, true);
@@ -11,7 +11,7 @@ add_image_size("commanditaire", 240, 150, false);
 #add_image_size("carrousel@2x", 3840, 1400, true);
 #add_image_size("commanditaire@2x", 480, 300, false);
 
-#Enlever les formats d'image par défaut
+#Enlever les formats d'image par dÃ©faut
 function EnleverFormatDefaut($F)
 {
 	unset($F["thumbnail"]);
@@ -34,7 +34,7 @@ function AjouterMenu()
 
 add_action("init", "AjouterMenu");
 
-#Enlève les classes et les id sur le items de menu
+#EnlÃ¨ve les classes et les id sur le items de menu
 function EnleverClassId($Args)
 {
 	return is_array($Args) ? array() : "";
@@ -69,12 +69,12 @@ add_action('wp_enqueue_scripts', 'AjouterCssJs');
 
 #add_action("pre_get_posts", "MaxArticles");
 
-#Personnaliser l'éditeur de texte WP
-function PersonnaliserÉditeur($in)
+#Personnaliser l'Ã©diteur de texte WP
+function PersonnaliserÃ‰diteur($in)
 {
 	$in["remove_linebreaks"] = false;
 	$in["convert_newlines_to_brs"] = false;
-	$in["wpautop"] = false; #Permet de préserver les sauts de ligne
+	$in["wpautop"] = false; #Permet de prÃ©server les sauts de ligne
 	$in["block_formats"] = "Paragraphe=p; Titre=h2";
 	$in["toolbar1"] = "formatselect, bold, italic, bullist, link, unlink, spellchecker, wp_fullscreen, pastetext, removeformat, charmap, undo, redo, wp_help";
 	$in["toolbar2"] = "";
@@ -82,9 +82,9 @@ function PersonnaliserÉditeur($in)
 	return $in;
 }
 
-add_filter("tiny_mce_before_init", "PersonnaliserÉditeur");
+add_filter("tiny_mce_before_init", "PersonnaliserÃ‰diteur");
 
-#Enlever l'éditeur HTML de l'éditeur de texte WP
+#Enlever l'Ã©diteur HTML de l'Ã©diteur de texte WP
 function EnleverQuickTags($Param)
 {
 	$Param["quicktags"] = false;
@@ -93,7 +93,7 @@ function EnleverQuickTags($Param)
 
 add_filter("wp_editor_settings", "EnleverQuickTags");
 
-#Limiter l'utilisation d'ACF à l'administrateur
+#Limiter l'utilisation d'ACF Ã  l'administrateur
 /*function CacherACF($W)
 {
 	$Utilisateur = wp_get_current_user()->user_login;
@@ -107,13 +107,13 @@ add_filter("wp_editor_settings", "EnleverQuickTags");
 
 #add_action("admin_menu", "CacherACF");
 
-#Permet de restreindre l'accès aux plugin ACF
+#Permet de restreindre l'accÃ¨s aux plugin ACF
 /*function RestreindreACF()
 {
 	$Utilisateur = wp_get_current_user()->user_login;
 	$Page = get_current_screen();
 	
-	#Si on tente d'éditer les champs ACF et qu'on est pas administrateur
+	#Si on tente d'Ã©diter les champs ACF et qu'on est pas administrateur
 	if($Utilisateur !== "cocadminthedrale")
 	{
 		if ($Page->id == "acf-field-group" || $Page->id == "edit-acf-field-group")
@@ -126,14 +126,14 @@ add_filter("wp_editor_settings", "EnleverQuickTags");
 
 #add_action("current_screen", "RestreindreACF");
 
-#Personnaliser l'éditeur de texte WP pour ACf
+#Personnaliser l'Ã©diteur de texte WP pour ACf
 /*function EditeurAcf($Editeur)
 {
-	#Créer un nouveau mode
-	$Editeur["Résumé"] = array();
+	#CrÃ©er un nouveau mode
+	$Editeur["RÃ©sumÃ©"] = array();
 	
-	#Ajouter une rangée dans le mode
-	$Editeur["Résumé"][1] = array("bold, italic, link, unlink, spellchecker, wp_fullscreen, pastetext, removeformat, charmap, undo, redo, wp_help");
+	#Ajouter une rangÃ©e dans le mode
+	$Editeur["RÃ©sumÃ©"][1] = array("bold, italic, link, unlink, spellchecker, wp_fullscreen, pastetext, removeformat, charmap, undo, redo, wp_help");
 	
 	#Enlever les autres modes
 	unset($Editeur["Full"]);
@@ -144,7 +144,7 @@ add_filter("wp_editor_settings", "EnleverQuickTags");
 
 #add_filter("acf/fields/wysiwyg/toolbars", "EditeurAcf");
 
-#Personnaliser l'éditeur de média WP
+#Personnaliser l'Ã©diteur de mÃ©dia WP
 function EditeurMedia()
 {
 	$Types = array("jpg|jpeg" => "image/jpeg", "png" => "image/png", "svg" => "image/svg+xml", "pdf" => "application/pdf");
@@ -154,7 +154,7 @@ function EditeurMedia()
 
 add_filter("upload_mimes", "EditeurMedia");
 
-#Régler jQuery is not defined avec Gravity Forms
+#RÃ©gler jQuery is not defined avec Gravity Forms
 /*function CDataOpen($Contenu = "")
 {
 	$Contenu = "document.addEventListener('DOMContentLoaded', function(){";
@@ -173,7 +173,7 @@ add_filter("upload_mimes", "EditeurMedia");
 
 #add_filter("gform_cdata_close", "CDataClose");
 
-#Gravity Form défile la page lors de la validation du formulaire
+#Gravity Form dÃ©file la page lors de la validation du formulaire
 #add_filter("gform_confirmation_anchor", "__return_true");
 
 #Enlever placeholder.js pour Gravity Forms
@@ -213,7 +213,7 @@ function AjouterAcfSeo($Contenu, $Post)
 {	
 	$Titre = get_the_title();
 	
-	#S'assurer que le résumé existe
+	#S'assurer que le rÃ©sumÃ© existe
 	$Resume = "";
 	
 	if (get_field("resume")) $Resume = get_field("resume");
@@ -234,17 +234,17 @@ add_filter("wpseo_pre_analysis_post_content", "AjouterAcfSeo", 10, 2);
 #Activation du fil d'arianne pour Yoast SEO
 #add_theme_support("yoast-seo-breadcrumbs");
 
-#S'assurer que les résumés on au moins 300 caractères
+#S'assurer que les rÃ©sumÃ©s on au moins 300 caractÃ¨res
 /*function ValidationTailleResume($Valide, $Valeur, $Champ, $Input)
 {
-	#Erreur si le champ est déjà invalide
+	#Erreur si le champ est dÃ©jÃ  invalide
 	if (!$Valide) return $Valide;
 	
 	$Longueur = strlen($Valeur);
 	
 	if ($Longueur < 300 || $Longueur > 450)
 	{
-		$Valide = "Le résumé doit contenir entre 300 et 450 caractères";
+		$Valide = "Le rÃ©sumÃ© doit contenir entre 300 et 450 caractÃ¨res";
 	}
 	
 	return $Valide;
@@ -252,7 +252,7 @@ add_filter("wpseo_pre_analysis_post_content", "AjouterAcfSeo", 10, 2);
 
 #add_filter("acf/validate_value/name=resume", "ValidationTailleResume", 10, 4);
 
-#Permet de vérifier la présence du Alt sur les images
+#Permet de vÃ©rifier la prÃ©sence du Alt sur les images
 function ValiderImage($Valide, $Id, $Champ, $Input)
 {
 	if (!$Valide) return $Valide;
@@ -270,14 +270,14 @@ function ValiderImage($Valide, $Id, $Champ, $Input)
 
 add_filter("acf/validate_value/type=image", "ValiderImage", 10, 4);
 
-#Enlever le support pour les éditeurs de blog
+#Enlever le support pour les Ã©diteurs de blog
 remove_action("wp_head", "wlwmanifest_link");
 remove_action("wp_head", "rsd_link");
 
 #Permet de retourner un srcset @2x s'il y a lieu
 #	$Id:			ID du post ou de la page
-#	$Champ:			Champ à vérifier
-#	$Image:			Taille de l'image à vérifier
+#	$Champ:			Champ Ã  vÃ©rifier
+#	$Image:			Taille de l'image Ã  vÃ©rifier
 #	$SousChamp:		$SousChamp ACF, s'il y a lieu
 /*function ImageHD($Id, $Champ, $Image, $SousChamp = "")
 {
@@ -317,12 +317,12 @@ remove_action("wp_head", "rsd_link");
 	return "";
 }*/
 
-#Permet de savoir si une image haute densité existe
-#Est utilisé avec ImageHD
+#Permet de savoir si une image haute densitÃ© existe
+#Est utilisÃ© avec ImageHD
 #	$L:	Largeur de l'image
 #	$H: Hauteur de l'image
-#	$Champ: Le champ à vérifier
-#	$Image: La taille de l'image haute densitée
+#	$Champ: Le champ Ã  vÃ©rifier
+#	$Image: La taille de l'image haute densitÃ©e
 /*function ComparerTailles($L, $H, $Champ, $Image)
 {
 	#Aller chercher les dimensions du champ
@@ -352,7 +352,7 @@ function EnleverEmojis()
 
 add_action("init", "EnleverEmojis");
 
-#Empêcher la supression de l'admin
+#EmpÃªcher la supression de l'admin
 add_action(
 	"load-users.php",
 	function()
@@ -365,7 +365,7 @@ add_action(
 				
 				if ($User->user_login == "OlivierBrochu")
 				{
-					wp_die("Cet utilisateur ne peut pas être supprimé");
+					wp_die("Cet utilisateur ne peut pas Ãªtre supprimÃ©");
 				}
 			}
 		}
@@ -380,7 +380,7 @@ add_action(
 		
 		if ($User->user_login == "OlivierBrochu")
 		{
-			wp_die("Cet utilisateur ne peut pas être supprimé");
+			wp_die("Cet utilisateur ne peut pas Ãªtre supprimÃ©");
 		}
 	}
 );
@@ -417,7 +417,7 @@ class Recherche
 							<div>
 								<h1><?php the_title(); ?></h1>
 								<p><?php echo strip_tags(get_field("resume")); ?></p>
-								<span>Lire la suite »</span>
+								<span>Lire la suite Â»</span>
 							</div>
 						</article>
 					</a>
@@ -426,7 +426,7 @@ class Recherche
 		}
 		else
 		{
-			echo "<p style='text-align: center;'>Votre recherche ne rapporte aucun résultat</p>";
+			echo "<p style='text-align: center;'>Votre recherche ne rapporte aucun rÃ©sultat</p>";
 		}
 		
 		echo "</div>";
@@ -462,7 +462,7 @@ function AfficherOptions()
 {
 	?>
 		<div class="wrap">
-			<h2>Informations supplémentaires</h2>
+			<h2>Informations supplÃ©mentaires</h2>
 			
 			<form method="post" action="options.php">
 				<?php
@@ -477,7 +477,7 @@ function AfficherOptions()
 					</tr>
 					
 					<tr valign="top">
-						<th scope="row">Description de la bannière de don</th>
+						<th scope="row">Description de la banniÃ¨re de don</th>
 						<td><input type="text" name="don_desc" value="<?php echo esc_attr(get_option("don_desc")); ?>" class="regular-text" maxlength="60" required /></td>
 					</tr>
 					
@@ -492,107 +492,168 @@ function AfficherOptions()
 		</div>
 	<?php
 }*/
-// Register Custom Post Type
-function etudiants() {
+
+// Register Custom Taxonomy
+function profil() {
 
 	$labels = array(
-		'name'                  => _x( 'Étudiants', 'Post Type General Name', 'text_domain' ),
-		'singular_name'         => _x( 'Étudiant', 'Post Type Singular Name', 'text_domain' ),
-		'menu_name'             => __( 'Etudiants', 'text_domain' ),
-		'name_admin_bar'        => __( 'Etudiants', 'text_domain' ),
-		'parent_item_colon'     => __( 'Parent Item:', 'text_domain' ),
-		'all_items'             => __( 'All Items', 'text_domain' ),
-		'add_new_item'          => __( 'Add New Item', 'text_domain' ),
-		'add_new'               => __( 'Add New', 'text_domain' ),
-		'new_item'              => __( 'New Item', 'text_domain' ),
-		'edit_item'             => __( 'Edit Item', 'text_domain' ),
-		'update_item'           => __( 'Update Item', 'text_domain' ),
-		'view_item'             => __( 'View Item', 'text_domain' ),
-		'search_items'          => __( 'Search Item', 'text_domain' ),
-		'not_found'             => __( 'Not found', 'text_domain' ),
-		'featured_image'        => __( 'Featured Image', 'text_domain' ),
-		'set_featured_image'    => __( 'Set featured image', 'text_domain' ),
-		'remove_featured_image' => __( 'Remove featured image', 'text_domain' ),
-		'use_featured_image'    => __( 'Use as featured image', 'text_domain' ),
-		'not_found_in_trash'    => __( 'Not found in Trash', 'text_domain' ),
-		'items_list'            => __( 'Items list', 'text_domain' ),
-		'items_list_navigation' => __( 'Items list navigation', 'text_domain' ),
-		'filter_items_list'     => __( 'Filter items list', 'text_domain' ),
+		'name'                       => _x( 'Profils', 'Taxonomy General Name', 'text_domain' ),
+		'singular_name'              => _x( 'Profil', 'Taxonomy Singular Name', 'text_domain' ),
+		'menu_name'                  => __( 'Profils', 'text_domain' ),
+		'all_items'                  => __( 'Tous les profils', 'text_domain' ),
+		'parent_item'                => __( 'Profil parent', 'text_domain' ),
+		'parent_item_colon'          => __( 'Parent:', 'text_domain' ),
+		'new_item_name'              => __( 'Nouveau profil', 'text_domain' ),
+		'add_new_item'               => __( 'Ajouter un profil', 'text_domain' ),
+		'edit_item'                  => __( 'Modifier un profil', 'text_domain' ),
+		'update_item'                => __( 'Mettre Ã  jour le profil', 'text_domain' ),
+		'view_item'                  => __( 'Visionner le profil', 'text_domain' ),
+		'separate_items_with_commas' => __( 'SÃ©parer avec des virgules', 'text_domain' ),
+		'add_or_remove_items'        => __( 'Ajouter ou supprimer un profil', 'text_domain' ),
+		'choose_from_most_used'      => __( 'Choisir parmis les plus utilisÃ©s', 'text_domain' ),
+		'popular_items'              => __( 'Profils populaires', 'text_domain' ),
+		'search_items'               => __( 'Rechercher un profil', 'text_domain' ),
+		'not_found'                  => __( 'Profil introuvable', 'text_domain' ),
+		'no_terms'                   => __( 'Pas de profil', 'text_domain' ),
+		'items_list'                 => __( 'Liste des profils', 'text_domain' ),
+		'items_list_navigation'      => __( 'Liste de navigation des profils', 'text_domain' ),
 	);
 	$args = array(
-		'label'                 => __( 'Étudiant', 'text_domain' ),
-		'description'           => __( 'Liste des etudiants de Dectim', 'text_domain' ),
+		'labels'                     => $labels,
+		'hierarchical'               => true,
+		'public'                     => true,
+		'show_ui'                    => true,
+		'show_admin_column'          => true,
+		'show_in_nav_menus'          => true,
+		'show_tagcloud'              => true,
+	);
+	register_taxonomy( 'profil', array( 'etudiant_post_type', 'enseignant_post_type' ), $args );
+
+}
+add_action( 'init', 'profil', 0 );
+
+
+// Register Custom Post Type
+function student_post_type() {
+
+	$labels = array(
+		'name'                  => _x( 'Ã‰tudiants', 'Post Type General Name', 'text_domain' ),
+		'singular_name'         => _x( 'Ã‰tudiant', 'Post Type Singular Name', 'text_domain' ),
+		'menu_name'             => __( 'Ã‰tudiants', 'text_domain' ),
+		'name_admin_bar'        => __( 'Post Type', 'text_domain' ),
+		'archives'              => __( 'Archive de l\'Ã©tudiant', 'text_domain' ),
+		'parent_item_colon'     => __( 'Parent Item:', 'text_domain' ),
+		'all_items'             => __( 'Tous les Ã©tudiants', 'text_domain' ),
+		'add_new_item'          => __( 'Ajouter un nouvel Ã©tudiant', 'text_domain' ),
+		'add_new'               => __( 'Ajouter un Ã©tudiant', 'text_domain' ),
+		'new_item'              => __( 'Nouvel Ã©tudiant', 'text_domain' ),
+		'edit_item'             => __( 'Modifier la fiche de l\'Ã©tudiant', 'text_domain' ),
+		'update_item'           => __( 'Mettre a jour la fiche de l\'Ã©tudiant', 'text_domain' ),
+		'view_item'             => __( 'Visionner la fiche de l\'Ã©tudiant', 'text_domain' ),
+		'search_items'          => __( 'Rechercher un Ã©tudiant', 'text_domain' ),
+		'not_found'             => __( 'Impossible de trouver l\'Ã©tudiant', 'text_domain' ),
+		'not_found_in_trash'    => __( 'Impossible de trouver l\'Ã©tudiant dans la corbeil', 'text_domain' ),
+		'featured_image'        => __( 'Image en vedette', 'text_domain' ),
+		'set_featured_image'    => __( 'Mettre l\'image en vedette', 'text_domain' ),
+		'remove_featured_image' => __( 'Retirer l\'image en vedette', 'text_domain' ),
+		'use_featured_image'    => __( 'Utiliser comme image en vedette', 'text_domain' ),
+		'insert_into_item'      => __( 'Insert into item', 'text_domain' ),
+		'uploaded_to_this_item' => __( 'TÃ©lÃ©verser dans la fiche', 'text_domain' ),
+		'items_list'            => __( 'Liste des Ã©tudiants', 'text_domain' ),
+		'items_list_navigation' => __( 'Navigation de la liste des etudiants', 'text_domain' ),
+		'filter_items_list'     => __( 'Filtrer', 'text_domain' ),
+	);
+	$rewrite = array(
+		'slug'                  => 'post_type',
+		'with_front'            => true,
+		'pages'                 => false,
+		'feeds'                 => true,
+	);
+	$args = array(
+		'label'                 => __( 'Ã‰tudiant', 'text_domain' ),
+		'description'           => __( 'Etudiants du programme', 'text_domain' ),
 		'labels'                => $labels,
-		'supports'              => array( 'title', 'editor', 'excerpt', 'thumbnail', 'revisions', 'custom-fields', 'page-attributes', 'post-formats', ),
-		'taxonomies'            => array( 'category', 'post_tag' ),
+		'supports'              => array( ),
+		'taxonomies'            => array(),
 		'hierarchical'          => false,
 		'public'                => true,
 		'show_ui'               => true,
 		'show_in_menu'          => true,
 		'menu_position'         => 5,
-		'menu_icon'             => 'dashicons-universal-access-alt',
+		'menu_icon'             => 'dashicons-groups',
 		'show_in_admin_bar'     => true,
 		'show_in_nav_menus'     => true,
 		'can_export'            => true,
 		'has_archive'           => true,		
 		'exclude_from_search'   => false,
 		'publicly_queryable'    => true,
+		'rewrite'               => $rewrite,
 		'capability_type'       => 'page',
 	);
-	register_post_type( 'etudiants', $args );
+	register_post_type( 'etudiant_post_type', $args );
 
 }
-add_action( 'init', 'etudiants', 0 );
+add_action( 'init', 'student_post_type', 0 );
+
+
 // Register Custom Post Type
-function enseignants() {
+function teacher_post_type() {
 
 	$labels = array(
 		'name'                  => _x( 'Enseignants', 'Post Type General Name', 'text_domain' ),
 		'singular_name'         => _x( 'Enseignant', 'Post Type Singular Name', 'text_domain' ),
 		'menu_name'             => __( 'Enseignants', 'text_domain' ),
 		'name_admin_bar'        => __( 'Enseignants', 'text_domain' ),
-		'parent_item_colon'     => __( 'Parent Item:', 'text_domain' ),
-		'all_items'             => __( 'All Items', 'text_domain' ),
-		'add_new_item'          => __( 'Add New Item', 'text_domain' ),
-		'add_new'               => __( 'Add New', 'text_domain' ),
-		'new_item'              => __( 'New Item', 'text_domain' ),
-		'edit_item'             => __( 'Edit Item', 'text_domain' ),
-		'update_item'           => __( 'Update Item', 'text_domain' ),
-		'view_item'             => __( 'View Item', 'text_domain' ),
-		'search_items'          => __( 'Search Item', 'text_domain' ),
-		'not_found'             => __( 'Not found', 'text_domain' ),
-		'not_found_in_trash'    => __( 'Not found in Trash', 'text_domain' ),
-		'featured_image'        => __( 'Featured Image', 'text_domain' ),
-		'set_featured_image'    => __( 'Set featured image', 'text_domain' ),
-		'remove_featured_image' => __( 'Remove featured image', 'text_domain' ),
-		'use_featured_image'    => __( 'Use as featured image', 'text_domain' ),
-		'insert_into_item'      => __( 'Insert into item', 'text_domain' ),
-		'uploaded_to_this_item' => __( 'Uploaded to this item', 'text_domain' ),
-		'items_list'            => __( 'Items list', 'text_domain' ),
-		'items_list_navigation' => __( 'Items list navigation', 'text_domain' ),
-		'filter_items_list'     => __( 'Filter items list', 'text_domain' ),
+		'archives'              => __( 'Archive des enseignants', 'text_domain' ),
+		'parent_item_colon'     => __( 'Parent de l\'enseignant', 'text_domain' ),
+		'all_items'             => __( 'Tous les enseignants', 'text_domain' ),
+		'add_new_item'          => __( 'Ajouter un enseignant', 'text_domain' ),
+		'add_new'               => __( 'Ajouter un enseignant', 'text_domain' ),
+		'new_item'              => __( 'Nouvel enseignant', 'text_domain' ),
+		'edit_item'             => __( 'Modifier la fiche de l\'enseignant', 'text_domain' ),
+		'update_item'           => __( 'Mettre Ã  jour la fiche de l\'enseignant', 'text_domain' ),
+		'view_item'             => __( 'Visionner la fiche de l\'enseignant', 'text_domain' ),
+		'search_items'          => __( 'Rechercher un enseignant', 'text_domain' ),
+		'not_found'             => __( 'Enseignant introuvable', 'text_domain' ),
+		'not_found_in_trash'    => __( 'Enseignant introuvable dans la corbeil', 'text_domain' ),
+		'featured_image'        => __( 'Image en vedette', 'text_domain' ),
+		'set_featured_image'    => __( 'Mettre l\'image en vedette', 'text_domain' ),
+		'remove_featured_image' => __( 'Retirer l\'image en vedette', 'text_domain' ),
+		'use_featured_image'    => __( 'Utiliser comme image en vedette', 'text_domain' ),
+		'insert_into_item'      => __( 'InsÃ©rer dans la fiche de l\'enseignant', 'text_domain' ),
+		'uploaded_to_this_item' => __( 'TÃ©lÃ©verser dans la fiche de l\'enseignant', 'text_domain' ),
+		'items_list'            => __( 'Liste des enseignants', 'text_domain' ),
+		'items_list_navigation' => __( 'Navigation de la liste des enseignants', 'text_domain' ),
+		'filter_items_list'     => __( 'Filter', 'text_domain' ),
+	);
+	$rewrite = array(
+		'slug'                  => 'enseignants-tim',
+		'with_front'            => true,
+		'pages'                 => false,
+		'feeds'                 => true,
 	);
 	$args = array(
 		'label'                 => __( 'Enseignant', 'text_domain' ),
-		'description'           => __( 'Liste des enseignants de Dectim', 'text_domain' ),
+		'description'           => __( 'Enseignants du programme', 'text_domain' ),
 		'labels'                => $labels,
-		'supports'              => array( 'title', 'editor', 'excerpt', 'thumbnail', 'revisions', 'custom-fields', 'page-attributes', 'post-formats', ),
-		'taxonomies'            => array( 'category', 'post_tag' ),
+		'supports'              => array( 'title', ),
+		'taxonomies'            => array(),
 		'hierarchical'          => false,
 		'public'                => true,
 		'show_ui'               => true,
 		'show_in_menu'          => true,
 		'menu_position'         => 5,
-		'menu_icon'             => 'dashicons-universal-access',
+		'menu_icon'             => 'dashicons-businessman',
 		'show_in_admin_bar'     => true,
 		'show_in_nav_menus'     => true,
 		'can_export'            => true,
 		'has_archive'           => true,		
 		'exclude_from_search'   => false,
 		'publicly_queryable'    => true,
+		'rewrite'               => $rewrite,
 		'capability_type'       => 'page',
 	);
-	register_post_type( 'enseignants', $args );
+	register_post_type( 'enseignant_post_type', $args );
 
 }
-add_action( 'init', 'enseignants', 0 );
+add_action( 'init', 'teacher_post_type', 0 );
