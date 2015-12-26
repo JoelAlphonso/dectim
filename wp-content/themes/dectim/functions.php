@@ -53,7 +53,7 @@ function AjouterCssJs()
 	wp_enqueue_script("mon_script");
 	
 	#Autoriser le Ajax
-	#wp_localize_script("mon_script", "ajaxurl", admin_url("admin-ajax.php"));
+	wp_localize_script("mon_script", "ajaxurl", admin_url("admin-ajax.php"));
 }
 
 add_action('wp_enqueue_scripts', 'AjouterCssJs');
@@ -386,22 +386,20 @@ add_action(
 );
 
 #Ajout de l'AJAX
-class Recherche
+class RechercheEtudiants
 {
-	function Recherche()
+	function RechercheEtudiants()
 	{
-		add_action("wp_ajax_Recherche", array($this, "Rechercher"));
-		add_action("wp_ajax_nopriv_Recherche", array($this, "Rechercher"));
+		add_action("wp_ajax_RechercheEtudiants", array($this, "RechercherEtudiants"));
+		add_action("wp_ajax_nopriv_RechercheEtudiants", array($this, "RechercherEtudiants"));
 	}
 	
-	function Rechercher()
-	{
+	function RechercherEtudiants()
+	{	
 		$Mot = $_REQUEST["mot-cle"];
-		$Nombre = isset($_REQUEST["articles"]) ? $_REQUEST["articles"]:3;
+		$Annee = isset($_REQUEST["annee"]) ? $_REQUEST["annee"]:null;
 		
-		$Requete = new WP_Query(array("s" => $Mot, "posts_per_page" => intval($Nombre), post_status => "publish", "post__not_in" => array(230, 180)));
-		
-		echo "<div class='Wrapper'>";
+		$Requete = new WP_Query(array("s" => $Mot, "post_status" => "publish", "post_type" => "etudiant_post_type"));
 		
 		if ($Requete->have_posts())
 		{
@@ -410,17 +408,7 @@ class Recherche
 				$Requete->the_post();
 				
 				?>
-					<a href="<?php the_permalink(); ?>">
-						<article>
-							<img src="<?php echo get_field("image_a_la_une")["sizes"]["image_a_la_une"]; ?>" <?php echo ImageHD(get_the_id(), "image_a_la_une", "image_a_la_une@2x"); ?> alt="<?php echo get_field("image_a_la_une")["alt"]; ?>" />
-							<div></div>
-							<div>
-								<h1><?php the_title(); ?></h1>
-								<p><?php echo strip_tags(get_field("resume")); ?></p>
-								<span>Lire la suite »</span>
-							</div>
-						</article>
-					</a>
+					<article>Allo</article>
 				<?php
 			}
 		}
@@ -429,14 +417,12 @@ class Recherche
 			echo "<p style='text-align: center;'>Votre recherche ne rapporte aucun résultat</p>";
 		}
 		
-		echo "</div>";
-		
 		wp_reset_postdata();
 		die();
 	}
 }
 
-$Rch = new Recherche();
+$Rch = new RechercheEtudiants();
 	
 #Create custom plugin settings menu
 #add_action("admin_menu", "AjouterMenuOptions");

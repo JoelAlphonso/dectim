@@ -165,3 +165,27 @@
 	}
   });
 })(jQuery);
+
+/****************************
+	Ajax
+****************************/
+jQuery(document).ready(function($)
+{
+	//Lorsqu'on tape, faire la recherche
+	$("body.contenu input[type=search]").on("keyup", function()
+	{
+		//Récupérer la valeur
+		var param = $(this).prop("value");
+		
+		//Faire la recherche avec au moins deux lettres
+		if (param.length > 1)
+		{
+			//Faire une requête vers le serveur
+			jQuery.get(ajaxurl, {action:"RechercheEtudiants", "mot-cle":param}, function(response)
+			{
+				//En cas de succès
+				console.log(response);
+			});
+		}
+	});
+})
