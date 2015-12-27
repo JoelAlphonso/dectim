@@ -1588,6 +1588,9 @@ overlay
   -moz-appearance: none;
   background-color: #fff;
   background-image: url("images/search_icon.svg");
+  background-position: 17px 50%;
+  background-repeat: no-repeat;
+  background-size: 18px;
   border: none;
   color: #989ea2;
   font-size: 16px;
@@ -1745,7 +1748,9 @@ overlay
 }
 
 .grille article div > span {
-  background-color: red;
+  background-image: url(images/grille_fleche.svg);
+  background-position: 50%;
+  background-repeat: no-repeat;
   display: block;
   height: 14px;
   left: 8px;

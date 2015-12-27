@@ -11,16 +11,6 @@
 		
 		<section>
 			<?php
-				#Aller chercher l'année
-				/*$annee = get_sub_field("annee");
-				
-				if (empty($annee))
-				{
-					
-				}*/
-			?>
-			
-			<?php
 				#Commencer une query WP
 				$args = array("post_type" => "etudiant_post_type", "nopaging" => true, "orderby" => "name", "order" => "ASC");
 				
