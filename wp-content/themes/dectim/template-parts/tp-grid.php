@@ -41,17 +41,22 @@
 						
 						#Aller chercher les profils
 						$profils = get_the_term_list($post->ID, "profil", "", ",");
+						$profils = strip_tags($profils);
+						$profils = explode(",", $profils);
 						?>
 							<article tabindex="<?php echo $i; ?>">
 								<div>
 									<span></span>
 									<p><?php echo $nom1; ?><span><?php echo implode($nom); ?></span></p>
 									
-									<ul>
-										<li>3D</li>
-										<li>Intégration</li>
-										<li>Traitement des médias</li>
-									</ul>
+									<?php if (count($profils) > 1): ?>
+										<ul>
+											<?php for ($j = 0; $j < min(count($profils), 3); $j++): ?>
+												<li><?php echo $profils[$j]; ?></li>
+											<?php endfor; ?>
+										</ul>
+									<?php endif; ?>
+									
 									<a href="<?php echo $url; ?>" target="_blank">Portfolio</a>
 								</div>
 
