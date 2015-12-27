@@ -19,14 +19,12 @@
 <header>
 	<div class='slideTop'></div>
 	<div class='bgHeaderSlide'>
-	<div class='slogan'>
-			<p><span>TECHNIQUES</span> D'INTÉGRATION MULTIMÉDIA</p>
-			<p><span>CÉGEP</span> ÉDOUARD-MONTPETIT</p>
-	</div>
-		<div class='bgHeaderBack'>
-		 
-		</div>
+		<div class='bgHeaderBack'></div>
 		<div class='bgHeaderFront'></div>
+		<div class='slogan'>
+				<p><span>TECHNIQUES</span> D'INTÉGRATION MULTIMÉDIA</p>
+				<p><span>CÉGEP</span> ÉDOUARD-MONTPETIT</p>
+		</div>
 	</div>
 	<div>		
 		<div class='hamburger'>
