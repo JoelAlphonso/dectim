@@ -18,6 +18,10 @@
 				</div>
 			</div>
 		</footer>
+		<!--CDN links for TweenLite, CSSPlugin, and EasePack-->
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.0/plugins/CSSPlugin.min.js"></script>
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.0/easing/EasePack.min.js"></script>
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.0/TweenLite.min.js"></script>
 		<?php wp_footer(); ?>
   	</body>
 </html>

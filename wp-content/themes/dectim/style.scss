@@ -369,6 +369,61 @@ header{
 
 		}
 	}
+
+	&.fixed{
+		
+		@media screen and (min-width: 960px){
+		
+			margin-top: 0px;
+			position: fixed;
+
+			nav{	
+				top:0px;
+				left: initial;
+				width: initial;
+
+				ul{
+					height:63px;
+					padding-left:0px;
+
+					li{
+						padding: 0 10px;
+					}
+
+				}
+			}
+
+			.bgHeaderBack{
+				display:none;
+			}
+
+			.bgHeaderFront{
+				display:none;
+			}
+
+			.slogan{
+				display:none;
+			}
+
+			.slideTop{
+				height: 63px;
+				margin-top: 0px;
+			}	
+
+			.logoBox{
+			    height: 80px;
+			    width: 115px;
+			    left: 15px;
+			    top: -10px;
+			    -webkit-transform: skew(-8deg, -3deg);
+			    transform: skew(-8deg, -3deg);
+
+				img{
+					width:70%;
+				}
+			}
+		}
+	}
 }
 @media screen and (max-width: 1000px){
 
