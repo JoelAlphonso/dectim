@@ -1,14 +1,14 @@
 /*
-	Theme Name: Dectim
-	Author: Joel Alphonso, Olivier Brochu, Marc-Antoine Gautreau, Maxime St-Onge
-	Description: Refonte du site web dectim.ca
+Theme Name: Dectim
+Author: Auteur
+Description: Description
 */
 
 @import "scss/mixins.scss";
 @import "scss/flexbox.scss";
 
 /******************************
-	Variables
+	Mixins
 ******************************/
 
 $main-color: #25363f;
@@ -79,13 +79,6 @@ $light-gray: #989ea2;
 }
 
 /******************************
-	Formulaires
-******************************/
-::-webkit-search-cancel-button{
-	display: none;
-}
-
-/******************************
 	Styles généraux
 ******************************/
 *{
@@ -124,10 +117,6 @@ h1{
 
 h1 + p{
 	margin-top: 65px;
-}
-
-h2{
-
 }
 
 p{
@@ -199,13 +188,22 @@ body.Accueil > main:nth-last-of-type(1), body.contenu > section:nth-last-of-type
 }
 
 /******************************
+	Formulaires
+******************************/
+::-webkit-search-cancel-button{
+	display: none;
+}
+
+/******************************
 	En-tête
 ******************************/
 
 header{
-	position:fixed;
-	z-index:2;
+	position:absolute;
+	z-index:10;
+	width: 100%;
 	display: block;
+	height: 63px;
 
 	.hamburger{
 		display:none;
@@ -214,7 +212,7 @@ header{
 	.slideTop{
 		height:0;
 		width:100%;
-		background-color:#162026;
+		background-color: $main-color-dark;
 		position:fixed;
 		z-index:4;
 	}
@@ -224,8 +222,8 @@ header{
 		width:180px;
 		height:115px;
 		display:block;
-		background-color:#455463;
-		position:fixed;
+		background-color: $main-color-light;
+		position:relative;
 		z-index:5;
 		left:50%; /* IE 9 */
 		-webkit-transform: translateX(-50%) skew(-8deg, -3deg); /* Safari */
@@ -248,93 +246,94 @@ header{
 		}
 	}
 
-		.slogan{
-			text-align:right;
-			position:fixed;
-			z-index: 2;
-			top:3vw;
-			right:1vw;
+	.slogan{
+		text-align:right;
+		position:absolute;
+		z-index: 10;
+		top:50%;
+		transform: translateY(-50%);
+		right:10px;
 
-			p{
-				font-weight:300;
-				font-size:1rem;
-				color:white;
-				line-height:1.4;
-				margin:0;
+		p{
+			font-weight:300;
+			font-size:1rem;
+			color:white;
+			line-height:1.4;
+			margin:0;
 
-				span{
-					font-weight:700;
-				}
+			span{
+				font-weight:700;
 			}
 		}
+	}
 
-		.bgHeaderSlide{
+	.bgHeaderSlide{
+		
+		position: absolute;
+		width: 100%;
 
-			.bgHeaderFront{
-				float:right;
-				width: 0;
-				height: 0;
-				padding-left:10%;
-				position:fixed;
-				top:0;
-				z-index:1;
-			}
-
-			.bgHeaderFront:after{
-				content: "";
-				display: block;
-				width: 0;
-				height: 0;
-				border-left: 100vw solid transparent;
-				border-top: 10vw solid #162026;
-			}
-
-			.bgHeaderBack{
-				width: 0;
-				height: 0;
-				padding-bottom: 10%;
-				position:fixed;
-				top:0;
-				z-index:3;
-			}
-
-			.bgHeaderBack:after{
-				content: "";
-				display: block;
-				width: 0;
-				height: 0;
-				margin-left: 0px;
-				border-bottom: 9vw solid transparent;
-				border-left: 100vw solid #1d2a33;
-			}
-
+		.bgHeaderFront{
+			position:absolute;
+			width: 100%;
+			overflow: hidden;
+			top:0;
+			z-index:1;
 		}
 
-		nav{
-			display: -webkit-flex;
-			display: -ms-flexbox;
-			display: flex;
-			background-color:transparent;
-			margin-left:auto;
-			margin-right:auto;
-			left: 0;
-			right: 0;
-			width:50%;
-			height:100px;
-			position:fixed;
-			z-index:4;
-			top:150px;
-			
-			.menu-nav-container{
-				width:100%;
-			}
+		.bgHeaderFront:after{
+			content: "";
+			display: block;
+			border-left: 100vw solid transparent;
+			border-top: 10vw solid #162026;
+		}
 
-			ul{
-				width:100%;
-				list-style-type:none;
-				margin:0;
-				padding:0;
-				@include Flex();
+		.bgHeaderBack{
+			position:relative;
+			z-index:3;
+			width: 100%;
+			overflow: hidden;
+		}
+
+		.bgHeaderBack:after{
+			content: "";
+			display: block;
+			border-bottom: 9vw solid transparent;
+			border-left: 100vw solid #1d2a33;
+		}
+
+	}
+
+	nav{
+		display: -webkit-flex;
+		display: -ms-flexbox;
+		display: flex;
+		background-color:transparent;
+		margin-left:auto;
+		margin-right:auto;
+		left: 0;
+		right: 0;
+		width:50%;
+		position:absolute;
+		z-index:4;
+		top:150px;
+		
+		.menu-nav-container{
+			width:100%;
+		}
+
+		.minimized{
+			top: 0;
+			left: initial;
+			width: initial;
+		}
+
+		ul{
+			width:100%;
+			list-style-type:none;
+			height: 63px;
+			margin:0;
+			padding:0;
+			@include Flex();
 			//display: -webkit-flex;
 			//display: flex;
 			-webkit-flex-direction: row;
@@ -348,7 +347,7 @@ header{
 			    justify-content: center;
 
 			li{
-				height: 55px;
+				height: 100%;
 				@include flex(1, 1, auto);
 				background-color: $main-color-dark;
 				margin:0;
@@ -378,18 +377,19 @@ header{
 
 	header{
 		margin-top: 0px;
+		position: fixed;
 
 		nav{	
 			top:0px;
-			margin-left:40%;
-			margin-right:10%;
+			left: initial;
+			width: initial;
 
 			ul{
 				height:63px;
 				padding-left:0px;
 
 				li{
-					padding: 20px 10px;
+					padding: 0 10px;
 				}
 
 			}
@@ -413,13 +413,15 @@ header{
 		}	
 
 		.logoBox{
-			height:63px;
-			left: -2%;
-			top: 0px;
-			img{
-				width:30%;
-				margin:15px 37%;
+		    height: 80px;
+		    width: 115px;
+		    left: 15px;
+		    top: -10px;
+		    -webkit-transform: skew(-8deg, -3deg);
+		    transform: skew(-8deg, -3deg);
 
+			img{
+				width:70%;
 			}
 		}
 	}
@@ -444,13 +446,11 @@ header{
 		}
 
 		.logoBox{
-			left: 45% !important;
-			top: 0px !important;
-			img{
-				width:30%;
-				margin:20px 34%;
-
-			}
+			left: 50%;
+			top: 50%;
+			position: absolute;
+			-webkit-transform: translate(-50%, -50%) skew(-8deg, -3deg);
+		    transform: translate(-50%, -50%) skew(-8deg, -3deg);
 		}
 
 		nav{
@@ -483,14 +483,52 @@ header{
 /******************************
 	Carrousel
 ******************************/
-.carrousel{
+.hero{
 	//@include AlignItems(flex-start);
-	@include Flex();
-	@include FlexDirection(column);
-	@include JustifyContent(center);
-	height: 100vh;
-	position: relative;
 	
+	.content{
+		z-index: 5;
+		padding-top: 150px;
+	    box-sizing: border-box;
+		@include Flex();
+		@include FlexDirection(column);
+		@include JustifyContent(center);
+		height: 100vh;
+		position: relative;
+	}
+	
+	.videoContainer {
+	    width: 100%;
+	    height: 100%;
+	    overflow-x: hidden;
+	    overflow-y: hidden;
+	    position: absolute;
+	    background: url("img/video.jpg") 50% 0% / cover;
+	}
+
+	.videoWrapper {
+	    position: absolute;
+	    top: 50%;
+	    transform: translateY(-50%);
+	    padding-bottom: 56.25%;
+	    padding-top: 25px;
+	    width: 100%;
+	    height: 100%;
+	    box-sizing: border-box;
+	    pointer-events: none;
+	    overflow-x: hidden;
+	    overflow-y: hidden;
+	}
+
+	.videoWrapper iframe {
+	    position: absolute;
+	    top: 0px;
+	    left: 50%;
+	    transform: translateX(-50%);
+	    height: 100%;
+	    min-width: 100%;
+	}
+
 	.Wrapper{
 		margin: 0;
 	}
@@ -597,6 +635,52 @@ header{
 ******************************/
 .projets{
 	padding: 45px 0;
+}
+
+.hoverContainer{
+	
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	overflow: hidden;
+	top: 0;
+	left: 0;
+
+	> span{
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		transition: transform 0.5s;
+		
+		&:first-of-type{
+			transform: translateY(95%);
+			background-color: $accent-color-dark;
+		}
+		&:last-of-type{
+			background-color: $accent-color;
+			transform: translateY(95%);
+		}
+	}
+
+	
+	
+}
+
+.projets-list > article:hover{
+	>.hoverContainer>span{
+		&:first-of-type{
+			transform: translateY(85%) skewY(15deg);
+		}
+
+		&:last-of-type{
+			transform: translateY(85%) skewY(-15deg);
+		}
+	}
+}
+
+.contentContainer{
+	position: relative;
+	z-index: 2;
 }
 
 .projets{
@@ -863,7 +947,7 @@ header{
 
 body.contenu{
 	
-	> section{
+	section{
 		
 		position: relative;
 		z-index: 0;
@@ -1129,6 +1213,29 @@ Template Parts
 
 	}
 }
+.p404{
+padding-top:45vh;
+height:30vh;
+
+
+		h1{
+			color:$main-color;
+			text-align:center;
+			font-weight:200;
+			span{
+
+				font-weight:700;
+			}
+
+		}
+		p{
+			text-align:center;
+		a{
+			text-decoration: underline;
+			font-size:1rem;
+			color:grey;
+		}}
+}
 
 // TEMPLATE PART text
 
@@ -1322,7 +1429,9 @@ overlay
 		background-color:$main-color-dark;
 		text-align:Center;
 		width:60%;
-		margin:0 25%;
+		margin:0 auto;
+		left: 0;
+		right: 0;
 		margin-top:-25px;
 		position:absolute;
 		z-index:3;
@@ -1363,7 +1472,7 @@ overlay
 		}
 	}
 	header{padding:30px 0;
-		width:60%;
+		width:60vw;
 		height:36px;
 		background-color:$main-color-dark;
 		span{
@@ -1432,6 +1541,7 @@ overlay
 	margin-top: 50px;
 	
 	.Wrapper{
+		//text-align: center;
 		max-width: 980px;
 		
 		/*Barre de recherche*/
