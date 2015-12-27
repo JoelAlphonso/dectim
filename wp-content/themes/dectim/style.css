@@ -685,11 +685,11 @@ header nav ul li:hover {
   transform: translateY(95%);
 }
 
-.projets-list > article:hover > .hoverContainer > span:first-of-type {
+.projets-list article:hover > .hoverContainer > span:first-of-type {
   transform: translateY(85%) skewY(15deg);
 }
 
-.projets-list > article:hover > .hoverContainer > span:last-of-type {
+.projets-list article:hover > .hoverContainer > span:last-of-type {
   transform: translateY(85%) skewY(-15deg);
 }
 
@@ -994,15 +994,14 @@ header nav ul li:hover {
 body.contenu > section {
   position: relative;
   z-index: 0;
+  /*&:nth-child(n+3){
+			background-color: white;
+		}*/
 }
 
-body.contenu > section:nth-child(2) {
+body.contenu > section:nth-of-type(1) {
   padding-top: 20%;
   background-color: #D8D8D8;
-}
-
-body.contenu > section:nth-child(n+3) {
-  background-color: white;
 }
 
 body.contenu > section .secHeader {
@@ -1169,7 +1168,7 @@ footer .content ul {
   -ms-flex-direction: column;
   flex-direction: column;
   -webkit-align-items: flex-start;
-  -ms-flex-align: start;
+  -ms-flex-align: flex-start;
   align-items: flex-start;
   -webkit-justify-content: center;
   -ms-flex-pack: center;
@@ -1187,22 +1186,27 @@ footer .content ul li {
 footer .content ul li h3 {
   font-size: 2.8rem;
   font-weight: 600;
+  text-transform: uppercase;
 }
 
-footer .content ul #Ficon:hover {
+footer .content ul .facebook:hover {
   background-color: #3e5b98;
 }
 
-footer .content ul #Yicon:hover {
+footer .content ul .youtube:hover {
   background-color: #e02a20;
 }
 
-footer .content ul #Licon:hover {
+footer .content ul .deviantart:hover {
   background-color: #3371b7;
 }
 
-footer .content ul #Dicon:hover {
+footer .content ul .linkedin:hover {
   background-color: #05cc47;
+}
+
+footer .content ul .behance:hover {
+  background-color: #1769ff;
 }
 
 /* --------------------------

@@ -1014,14 +1014,14 @@ body.contenu{
 		position: relative;
 		z-index: 0;
 
-		&:nth-child(2){
+		&:nth-of-type(1){
 			padding-top:20%;
 			background-color: $light-bg;
 		}
 
-		&:nth-child(n+3){
+		/*&:nth-child(n+3){
 			background-color: white;
-		}
+		}*/
 
 		.secHeader{
 			text-align:center;
@@ -1182,18 +1182,11 @@ footer{
 			list-style-type:none;
 			margin:0;
 			padding:0;
-			display: -webkit-flex;
-			display: -ms-flexbox;
-			display: flex;
-			-webkit-flex-direction: column;
-			-ms-flex-direction: column;
-			    flex-direction: column;
-			-webkit-align-items: flex-start;
-			-ms-flex-align: start;
-			    align-items: flex-start;
-			-webkit-justify-content: center;
-			-ms-flex-pack: center;
-			    justify-content: center;
+			@include Flex();
+			@include FlexDirection(column);
+			@include AlignItems(flex-start);
+			@include JustifyContent(center);
+			
 			li{
 				z-index:0;
 				margin:5px 0;
@@ -1203,24 +1196,27 @@ footer{
 				h3 {
 					font-size:2.8rem;
 					font-weight:600;
+					text-transform: uppercase;
 				}
 			}	
-			#Ficon:hover{
+			.facebook:hover{
 				background-color:#3e5b98;
 			}
 
-			#Yicon:hover{
+			.youtube:hover{
 				background-color:#e02a20;
 			}
-			#Licon:hover{
+			.deviantart:hover{
 
 				background-color:#3371b7;
 			}
-			#Dicon:hover{
+			.linkedin:hover{
 
 				background-color:#05cc47;
 			}
-			
+			.behance:hover{
+				background-color: #1769ff;
+			}
 		}
 	}
 }
