@@ -1551,7 +1551,10 @@ overlay
 	input[type=search]{
 		@include Appearance();
 		background-color: #fff;
-		background-image:url("images/search_icon.svg");
+		background-image: url("images/search_icon.svg");
+		background-position: 17px 50%;
+		background-repeat: no-repeat;
+		background-size: 18px;
 		border: none;
 		color: $light-gray;
 		@include SetFont(16, 300);
@@ -1680,7 +1683,9 @@ overlay
 			z-index: 3;
 
 			> span{
-				background-color: red;
+				background-image: url(images/grille_fleche.svg);
+				background-position: 50%;
+				background-repeat: no-repeat;
 				display: block;
 				height: 14px;
 				left: 8px;
