@@ -40,8 +40,7 @@
 						$url = empty(get_field("url_portfolio")) ? "javascript:void(0)" : get_field("url_portfolio");
 						
 						#Aller chercher les profils
-						$profils = null;
-						
+						$profils = get_the_term_list($post->ID, "profil", "", ",");
 						?>
 							<article tabindex="<?php echo $i; ?>">
 								<div>
