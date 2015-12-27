@@ -167,10 +167,16 @@
 })(jQuery);
 
 /****************************
-	Ajax
+	Grille de finissants
 ****************************/
 jQuery(document).ready(function($)
 {
+	/*Flèche retour*/
+	jQuery(".grille article div > span").on("click", function(){
+		document.activeElement.blur();
+	});
+	
+	/*Ajax*/
 	//Lorsqu'on tape, faire la recherche
 	$("body.contenu input[type=search]").on("keyup", function()
 	{
