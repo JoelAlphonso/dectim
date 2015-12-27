@@ -947,7 +947,7 @@ header{
 
 body.contenu{
 	
-	section{
+	> section{
 		
 		position: relative;
 		z-index: 0;
@@ -1554,6 +1554,7 @@ overlay
 	input[type=search]{
 		@include Appearance();
 		background-color: #fff;
+		background-image:url("images/search_icon.svg");
 		border: none;
 		color: $light-gray;
 		@include SetFont(16, 300);
