@@ -169,6 +169,8 @@
 /****************************
 	Grille de finissants
 ****************************/
+var requetes = [];
+
 jQuery(document).ready(function($)
 {
 	/*Flèche retour*/
@@ -187,11 +189,26 @@ jQuery(document).ready(function($)
 		if (param.length > 1)
 		{
 			//Faire une requête vers le serveur
-			jQuery.get(ajaxurl, {action:"RechercheEtudiants", "mot-cle":param}, function(response)
+			var rqt = jQuery.get(ajaxurl, {action:"RechercheEtudiants", "mot-cle":param}, function(response)
 			{
-				//En cas de succès
-				console.log(response);
+				jQuery(".grille section").html(response);
 			});
+			
+			//Annuler toutes les requetes précédents
+			annulerRequetes();
+			
+			//Garder la requete en mémoire
+			requetes.push(rqt);
 		}
 	});
 })
+
+function annulerRequetes()
+{
+	for (var i = 0; i < requetes.length; i++)
+	{
+		requetes[i].abort();
+	}
+	
+	requetes = [];
+}

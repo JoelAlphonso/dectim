@@ -235,22 +235,23 @@ add_filter("wpseo_pre_analysis_post_content", "AjouterAcfSeo", 10, 2);
 #add_theme_support("yoast-seo-breadcrumbs");
 
 #S'assurer que les résumés on au moins 300 caractères
-/*function ValidationTailleResume($Valide, $Valeur, $Champ, $Input)
+function ValidationAnneGrilleFinissants($Valide, $Valeur, $Champ, $Input)
 {
-	#Erreur si le champ est déjà invalide
-	if (!$Valide) return $Valide;
+	$ValNum = intval($Valeur);
 	
-	$Longueur = strlen($Valeur);
-	
-	if ($Longueur < 300 || $Longueur > 450)
+	if ($ValNum >= 2016 || $ValNum == 0)
 	{
-		$Valide = "Le résumé doit contenir entre 300 et 450 caractères";
+		$Valide = true;
+	}
+	else
+	{
+		$Valide = "Entrez une valeur supérieure à 2016. La valeur zéro est acceptée";
 	}
 	
 	return $Valide;
-}*/
+}
 
-#add_filter("acf/validate_value/name=resume", "ValidationTailleResume", 10, 4);
+add_filter("acf/validate_value/name=annee", "ValidationAnneGrilleFinissants", 10, 4);
 
 #Permet de vérifier la présence du Alt sur les images
 function ValiderImage($Valide, $Id, $Champ, $Input)
@@ -385,7 +386,7 @@ add_action(
 	}
 );
 
-#Ajout de l'AJAX
+#Ajout de l'AJAX pour la grille d'étudiants
 class RechercheEtudiants
 {
 	function RechercheEtudiants()
@@ -396,26 +397,12 @@ class RechercheEtudiants
 	
 	function RechercherEtudiants()
 	{	
-		$Mot = $_REQUEST["mot-cle"];
-		$Annee = isset($_REQUEST["annee"]) ? $_REQUEST["annee"]:null;
+		$mots = $_REQUEST["mot-cle"];
+		$annee = isset($_REQUEST["annee"]) ? $_REQUEST["annee"]:"2016";
 		
-		$Requete = new WP_Query(array("s" => $Mot, "post_status" => "publish", "post_type" => "etudiant_post_type"));
+		getEtudiants($annee, $mots);
 		
-		if ($Requete->have_posts())
-		{
-			while ($Requete->have_posts())
-			{
-				$Requete->the_post();
-				
-				?>
-	<article>Allo</article>
-	<?php
-			}
-		}
-		else
-		{
-			echo "<p style='text-align: center;'>Votre recherche ne rapporte aucun résultat</p>";
-		}
+		#echo "<p style='text-align: center;'>Votre recherche ne rapporte aucun résultat</p>";
 		
 		wp_reset_postdata();
 		die();
@@ -423,6 +410,126 @@ class RechercheEtudiants
 }
 
 $Rch = new RechercheEtudiants();
+
+function getEtudiants($annee, $recherche="")
+{	
+	$args = array(
+		"post_type" => "etudiant_post_type",
+		"nopaging" => true,
+		"orderby" => "name",
+		"order" => "ASC",
+		"meta_query" => array(
+			array(
+				"key" => "annee_graduation",
+				"value" => $annee,
+				"type"=> "NUMERIC",
+				"compare" => "LIKE"
+			)
+		)
+	);
+	
+	#Commencer une query WP
+	$query = new WP_Query($args);
+
+	#Aller chercher tous les étudiants
+	if ($query->have_posts())
+	{
+		$i = 0;
+		
+		while ($query->have_posts())
+		{
+			$query->the_post();
+			
+			$nom = explode(" ", get_the_title());
+			$prenom = array_shift($nom);
+			$url = empty(get_field("url_portfolio")) ? "javascript:void(0)" : get_field("url_portfolio");
+			
+			#Aller chercher les profils
+			$profils = get_the_term_list($post->ID, "profil", "", ",");
+			$profils = strip_tags($profils);
+			$profils = explode(",", $profils);
+			
+			#Si on rechercher, filtrer les étudiants
+			if (!empty($recherche))
+			{
+				$keep = filterEtudiants($recherche, $prenom, implode(" ", $nom), $profils);
+				
+				if (!$keep) continue;
+			}
+			?>
+				<article tabindex="<?php echo $i; ?>">
+					<div>
+						<span></span>
+						<p><?php echo $prenom; ?><span><?php echo implode($nom); ?></span></p>
+						
+						<?php if (count($profils) > 1): ?>
+							<ul>
+								<?php for ($j = 0; $j < min(count($profils), 3); $j++): ?>
+									<li><?php echo $profils[$j]; ?></li>
+								<?php endfor; ?>
+							</ul>
+						<?php endif; ?>
+						
+						<a href="<?php echo $url; ?>" target="_blank">Portfolio</a>
+					</div>
+
+					<p><?php echo $prenom; ?><span><?php echo implode($nom); ?></span></p>
+					<img src="<?php echo get_field("photo_etudiant")["sizes"]["medium"]; ?>" alt="<?php the_title(); ?>" />
+				</article>
+			<?php
+				$i++;
+		}
+	}
+
+	#Ajouter des fillers
+	for ($i = 0; $i < 3; $i++):
+	?>
+		<article class="filler">
+		</article>
+	<?php
+	endfor;
+
+	wp_reset_postdata();
+}
+
+#Permet de filtrer les étudiants pour la recherche
+function filterEtudiants($searchParam, $prenom = "", $nom = "", $profils = array())
+{
+	#Tout mettre en minuscules et enlever les accents
+	$searchParam = enleverAccents(strtolower($searchParam));
+	$prenom = enleverAccents(strtolower($prenom));
+	$nom = enleverAccents(strtolower($nom));
+	$profils = array_map("enleverAccents", array_map("strtolower", $profils));
+	
+	#Assembler les mots clés
+	$motscle = implode(" ", array($prenom, $nom, implode(" ", $profils)));
+	
+	#Vérifier si on garde le post
+	$keep = false;
+	$index = strpos($motscle, $searchParam);
+	
+	if ($index === false)
+	{
+		
+	}
+	else
+	{
+		$keep = true;
+	}
+	
+	return $keep;
+}
+
+function enleverAccents($chaine, $charset = "utf-8")
+{
+    $chaine = htmlentities($chaine, ENT_NOQUOTES, $charset);
+    
+    $chaine = preg_replace('#&([A-za-z])(?:acute|cedil|caron|circ|grave|orn|ring|slash|th|tilde|uml);#', '\1', $chaine);
+    $chaine = preg_replace('#&([A-za-z]{2})(?:lig);#', '\1', $chaine); #Pour les ligatures e.g. '&oelig;'
+    $chaine = preg_replace('#&[^;]+;#', '', $chaine); #Supprime les autres caractères
+    
+    return $chaine;
+}
 	
 #Create custom plugin settings menu
 #add_action("admin_menu", "AjouterMenuOptions");
