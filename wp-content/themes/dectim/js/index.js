@@ -1,4 +1,6 @@
-﻿(function($){
+﻿var requetes = [];
+
+(function($){
 var menu;
 jQuery(document).ready(function(){
   
@@ -53,12 +55,9 @@ jQuery(document).ready(function(){
   });
 
 
-/****************************
-	Grille de finissants
-****************************/
-var requetes = [];
-
-
+	/****************************
+		Grille de finissants
+	****************************/
 	/*Flèche retour*/
 	jQuery(".grille article div > span").on("click", function(){
 		document.activeElement.blur();

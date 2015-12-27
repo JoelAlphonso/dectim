@@ -4,11 +4,7 @@
 <head>
 	<meta charset="<?php bloginfo("charset"); ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title><?php
-		bloginfo("name");
-		$desc = get_bloginfo("description");
-		if (! empty($desc)) echo " : " . $desc;
-	?></title>
+	<title><?php getPageTitle(); ?></title>
 	<link href='https://fonts.googleapis.com/css?family=Roboto:900,700,300,300italic,500,400' rel='stylesheet' type='text/css'>
 	<link href="<?php bloginfo("stylesheet_url"); ?>" rel="stylesheet" type="text/css" />
 	<?php wp_head(); ?>

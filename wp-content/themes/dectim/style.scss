@@ -1,7 +1,8 @@
 /*
 Theme Name: Dectim
-Author: Auteur
-Description: Description
+Author: Joel Alphonso, Olivier Brochu, Marc-Antoine Gautreau, Maxime St-Onge
+Description: Refonte de dectim.ca
+Version: 1.0
 */
 
 @import "scss/mixins.scss";
@@ -148,14 +149,23 @@ a.button{
 	@include SetFont(24, 600); //16
 	padding: 30px 35px;
 	text-transform: uppercase;
+	transition: background-color 0.3s;
 
 	@media screen and (min-width: 960px){
 		@include SetFont(32);
+	}
+	
+	&:hover{
+		background-color: lighten($main-color, 5%);
 	}
 }
 
 a.orange{
 	background-color: $accent-color;
+	
+	&:hover{
+		background-color: lighten($accent-color, 5%);
+	}
 }
 
 a.small{

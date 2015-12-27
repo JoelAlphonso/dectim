@@ -1,15 +1,7 @@
 <?php
 #Activation du support pour les images à la une et définition des grosseurs voulues
-add_image_size("banniere", 1920, 400, true);
-add_image_size("image_a_la_une", 520, 360, true);
-add_image_size("carrousel", 1920, 700, true);
-add_image_size("commanditaire", 240, 150, false);
-
-#Retina
-#add_image_size("banniere@2x", 3840, 800, true);
-#add_image_size("image_a_la_une@2x", 1040, 720, true);
-#add_image_size("carrousel@2x", 3840, 1400, true);
-#add_image_size("commanditaire@2x", 480, 300, false);
+add_image_size("page_accueil", 700, 467, true);
+add_image_size("grille", 450, 450, true);
 
 #Enlever les formats d'image par défaut
 function EnleverFormatDefaut($F)
@@ -27,8 +19,7 @@ function AjouterMenu()
 {
 	register_nav_menus(
 		array(
-		"menu-principal" => __("Menu principal", "cocathedrale"),
-		"pied-de-page" => "Pied de page"
+		"menu-principal" => __("Menu principal", "cocathedrale")
 	));
 }
 
@@ -58,16 +49,28 @@ function AjouterCssJs()
 
 add_action('wp_enqueue_scripts', 'AjouterCssJs');
 
-#Nombre d'articles sur une page
-/*function MaxArticles($query)
+#Réécriture des titres des pages
+function getPageTitle()
 {
-	if (is_single() || is_home())
+	#Le titre
+	$leTitre = "";
+	
+	#Remplir le before (titre des pages)
+	$before = "";
+	
+	if (is_page() || is_single())
 	{
-		$query->set("posts_per_page", "3");
+		$leTitre .= get_the_title() . " - ";
 	}
-}*/
-
-#add_action("pre_get_posts", "MaxArticles");
+	
+	#Remplir la section avec le nom et le slogan
+	$leTitre .= get_bloginfo("name");
+	$desc = get_bloginfo("description");
+	
+	if (!empty($desc)) $leTitre .= " | " . $desc;
+	
+	echo $leTitre;
+}
 
 #Personnaliser l'éditeur de texte WP
 function PersonnaliserÉditeur($in)
@@ -93,57 +96,6 @@ function EnleverQuickTags($Param)
 
 add_filter("wp_editor_settings", "EnleverQuickTags");
 
-#Limiter l'utilisation d'ACF à l'administrateur
-/*function CacherACF($W)
-{
-	$Utilisateur = wp_get_current_user()->user_login;
-	
-	if ($Utilisateur != "cocadminthedrale")
-	{
-		remove_menu_page("edit.php?post_type=acf");
-		remove_menu_page("edit.php?post_type=acf-field-group");
-	}
-}*/
-
-#add_action("admin_menu", "CacherACF");
-
-#Permet de restreindre l'accès aux plugin ACF
-/*function RestreindreACF()
-{
-	$Utilisateur = wp_get_current_user()->user_login;
-	$Page = get_current_screen();
-	
-	#Si on tente d'éditer les champs ACF et qu'on est pas administrateur
-	if($Utilisateur !== "cocadminthedrale")
-	{
-		if ($Page->id == "acf-field-group" || $Page->id == "edit-acf-field-group")
-		{
-			#Rediriger la personne vers l'admin
-			header("Location: " . get_settings("siteurl") . "/wp-admin/index.php");
-		}
-	}
-}*/
-
-#add_action("current_screen", "RestreindreACF");
-
-#Personnaliser l'éditeur de texte WP pour ACf
-/*function EditeurAcf($Editeur)
-{
-	#Créer un nouveau mode
-	$Editeur["Résumé"] = array();
-	
-	#Ajouter une rangée dans le mode
-	$Editeur["Résumé"][1] = array("bold, italic, link, unlink, spellchecker, wp_fullscreen, pastetext, removeformat, charmap, undo, redo, wp_help");
-	
-	#Enlever les autres modes
-	unset($Editeur["Full"]);
-	unset($Editeur["Basic"]);
-	
-	return $Editeur;
-}*/
-
-#add_filter("acf/fields/wysiwyg/toolbars", "EditeurAcf");
-
 #Personnaliser l'éditeur de média WP
 function EditeurMedia()
 {
@@ -153,86 +105,6 @@ function EditeurMedia()
 }
 
 add_filter("upload_mimes", "EditeurMedia");
-
-#Régler jQuery is not defined avec Gravity Forms
-/*function CDataOpen($Contenu = "")
-{
-	$Contenu = "document.addEventListener('DOMContentLoaded', function(){";
-	
-	return $Contenu;
-}*/
-
-#add_filter("gform_cdata_open", "CDataOpen");
-
-/*function CDataClose($Contenu = "")
-{
-	$Contenu = "}, false );";
-	
-	return $Contenu;
-}*/
-
-#add_filter("gform_cdata_close", "CDataClose");
-
-#Gravity Form défile la page lors de la validation du formulaire
-#add_filter("gform_confirmation_anchor", "__return_true");
-
-#Enlever placeholder.js pour Gravity Forms
-/*function EnleverPlaceholder()
-{
-	if (! is_admin())
-	{
-		wp_deregister_script("gform_placeholder");
-	}
-}*/
-
-#add_action("wp_print_scripts", "EnleverPlaceholder", 100);
-
-#Change le tabIndex des formulaires
-/*function ChangerTabIndex($Tab)
-{
-	return 100;
-}*/
-
-#add_filter("gform_tabindex", "ChangerTabIndex");
-
-#Ajoute l'autocomplete pour Gravity Forms
-/*function AutocompleteForms($Tag, $Form)
-{
-	if (!is_admin())
-	{
-		$Tag = str_replace(">", " autocomplete='on'>", $Tag);
-	}
-	
-	return $Tag;
-}*/
-
-#add_filter("gform_form_tag", "AutocompleteForms", 10, 2);
-
-#Ajouter les champs ACf pour WP Seo
-function AjouterAcfSeo($Contenu, $Post)
-{	
-	$Titre = get_the_title();
-	
-	#S'assurer que le résumé existe
-	$Resume = "";
-	
-	if (get_field("resume")) $Resume = get_field("resume");
-	
-	#S'assurer que l'image existe
-	$Image = "";
-	
-	if (get_field("image_a_la_une"))
-	{
-		$Image = "<img src='" . get_field("image_a_la_une")["url"] . "' alt='" . get_field("image_a_la_une")["alt"] . "' />";
-	}
-	
-	return $Titre . $Resume . $Image . $Contenu;
-}
-
-add_filter("wpseo_pre_analysis_post_content", "AjouterAcfSeo", 10, 2);
-
-#Activation du fil d'arianne pour Yoast SEO
-#add_theme_support("yoast-seo-breadcrumbs");
 
 #S'assurer que les résumés on au moins 300 caractères
 function ValidationAnneGrilleFinissants($Valide, $Valeur, $Champ, $Input)
@@ -274,70 +146,6 @@ add_filter("acf/validate_value/type=image", "ValiderImage", 10, 4);
 #Enlever le support pour les éditeurs de blog
 remove_action("wp_head", "wlwmanifest_link");
 remove_action("wp_head", "rsd_link");
-
-#Permet de retourner un srcset @2x s'il y a lieu
-#	$Id:			ID du post ou de la page
-#	$Champ:			Champ à vérifier
-#	$Image:			Taille de l'image à vérifier
-#	$SousChamp:		$SousChamp ACF, s'il y a lieu
-/*function ImageHD($Id, $Champ, $Image, $SousChamp = "")
-{
-	global $_wp_additional_image_sizes;
-	
-	$Infos = $_wp_additional_image_sizes[$Image];
-	
-	#Si la taille de l'image existe
-	if (isset($Infos))
-	{
-		#Obtenir sa largeur et sa hauteur
-		$L = $Infos["width"];
-		$H = $Infos["height"];
-		
-		#Aller chercher le champ d'image
-		$Champ = get_field($Champ, $Id);
-		
-		if (!empty($SousChamp))
-		{
-			$Val = [];
-			
-			foreach ($Champ as $C)
-			{
-				$SC = $C[$SousChamp];
-				
-				$Val[] = ComparerTailles($L, $H, $SC, $Image);
-			}
-			
-			return $Val;
-		}
-		else
-		{
-			return ComparerTailles($L, $H, $Champ, $Image);
-		}
-	}
-	
-	return "";
-}*/
-
-#Permet de savoir si une image haute densité existe
-#Est utilisé avec ImageHD
-#	$L:	Largeur de l'image
-#	$H: Hauteur de l'image
-#	$Champ: Le champ à vérifier
-#	$Image: La taille de l'image haute densitée
-/*function ComparerTailles($L, $H, $Champ, $Image)
-{
-	#Aller chercher les dimensions du champ
-	$L2 = $Champ["sizes"][$Image . "-width"];
-	$H2 = $Champ["sizes"][$Image . "-height"];
-	
-	#Si les dimensions correspondent
-	if ($L == $L2 && $H == $H2)
-	{
-		return "srcset='" . $Champ["sizes"][$Image] . " 2x'";
-	}
-	
-	return "";
-}*/
 
 #Enlever les emojis
 function EnleverEmojis()
@@ -449,7 +257,7 @@ function getEtudiants($annee, $recherche="")
 			$profils = strip_tags($profils);
 			$profils = explode(",", $profils);
 			
-			#Si on rechercher, filtrer les étudiants
+			#Si on recherche, filtrer les étudiants
 			if (!empty($recherche))
 			{
 				$keep = filterEtudiants($recherche, $prenom, implode(" ", $nom), $profils);
@@ -474,7 +282,7 @@ function getEtudiants($annee, $recherche="")
 					</div>
 
 					<p><?php echo $prenom; ?><span><?php echo implode($nom); ?></span></p>
-					<img src="<?php echo get_field("photo_etudiant")["sizes"]["medium"]; ?>" alt="<?php the_title(); ?>" />
+					<img src="<?php echo get_field("photo_etudiant")["sizes"]["grille"]; ?>" alt="<?php the_title(); ?>" />
 				</article>
 			<?php
 				$i++;
@@ -530,67 +338,51 @@ function enleverAccents($chaine, $charset = "utf-8")
     
     return $chaine;
 }
+
+/**************************
+	Professeurs
+**************************/
+function getProfesseurs()
+{
+	$args = array(
+		"post_type" => "enseignant_post_type",
+		"nopaging" => true,
+		"orderby" => "name",
+		"order" => "ASC"
+	);
 	
-#Create custom plugin settings menu
-#add_action("admin_menu", "AjouterMenuOptions");
+	#Commencer une query WP
+	$query = new WP_Query($args);
 
-/*function AjouterMenuOptions()
-{
-	#Ajouter un menu
-	add_options_page("Options", "Options", "administrator", __FILE__, "AfficherOptions");
+	#Aller chercher tous les étudiants
+	if ($query->have_posts())
+	{
+		while ($query->have_posts())
+		{
+			$query->the_post();
+			
+			#Aller chercher le nom
+			$nom = explode(" ", get_the_title());
+			$prenom = array_shift($nom);
+			?>
+				<article>
+					<p><?php echo $prenom; ?><span><?php echo implode($nom); ?></span></p>
+					<img src="<?php echo get_field("photo_enseignant")["sizes"]["grille"]; ?>" alt="<?php the_title(); ?>" />
+				</article>
+			<?php
+		}
+	}
 
-	#Enregistrer les options
-	add_action("admin_init", "EnregistrerOptions");
-}
-
-function EnregistrerOptions()
-{
-	#Enregistrer les options
-	register_setting("infos_supplementaires", "logo_url");
-	register_setting("infos_supplementaires", "don_desc");
-	register_setting("infos_supplementaires", "don_url");
-}
-
-function AfficherOptions()
-{
+	#Ajouter des fillers
+	for ($i = 0; $i < 3; $i++):
 	?>
-		<div class="wrap">
-			<h2>Informations supplémentaires</h2>
+		<article class="filler">
+		</article>
+	<?php
+	endfor;
 
-			<form method="post" action="options.php">
-				<?php
-					settings_fields("infos_supplementaires");
-					do_settings_sections("infos_supplementaires");
-				?>
-
-					<table class="form-table">
-						<tr valign="top">
-							<th scope="row">Adresse du logo (URL)</th>
-							<td>
-								<input type="text" name="logo_url" value="<?php echo esc_attr(get_option(" logo_url ")); ?>" class="regular-text" />
-							</td>
-						</tr>
-
-						<tr valign="top">
-							<th scope="row">Description de la bannière de don</th>
-							<td>
-								<input type="text" name="don_desc" value="<?php echo esc_attr(get_option(" don_desc ")); ?>" class="regular-text" maxlength="60" required />
-							</td>
-						</tr>
-
-						<tr valign="top">
-							<th scope="row">Adresse du bouton de don (URL)</th>
-							<td>
-								<input type="text" name="don_url" value="<?php echo esc_attr(get_option(" don_url ")); ?>" class="regular-text" required />
-							</td>
-						</tr>
-					</table>
-
-					<?php submit_button(); ?>
-			</form>
-		</div>
-		<?php
-}*/
+	wp_reset_postdata();
+}
 
 // Register Custom Taxonomy
 function profil() {
