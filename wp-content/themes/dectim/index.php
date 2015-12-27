@@ -52,57 +52,40 @@
 				
 			<!--Projets-->
 			<div class="Wrapper projets-list">
-				<article class="selected">
-					<div class="hoverContainer">
-						<span></span>
-						<span></span>
-					</div>
-					<div class="contentContainer">
-						
-						<h1><a href="javascript:void(0)" class="showProject" data-projet="0">Fancy <span>Robot</span></a></h1>
-						<p>Par: <a href="javascript:void(0)">Marc-Antoine Gautreau</a></p>
-					</div>
-					<!-- <svg width="343px" height="10px">
-						<polygon points="0,0 343,0 343,10 0,10" />
-					</svg>
-					<span></span>
-					<span></span>
-					<span></span> -->
-					
-				</article>
 
-				<article>
-					<h1><a href="javascript:void(0)" class="showProject" data-projet="1"><span>Amaz3ing</span></a></h1>
-					<p>Par: <a href="javascript:void(0)" class="showProject" data-projet="1">Frédéric Lestage</a>
-							<a href="javascript:void(0)" class="showProject" data-projet="1">Louis-Philippe Boulé</a>
-							<a href="javascript:void(0)" class="showProject" data-projet="1">Jonathan Pion</a>
-							<a href="javascript:void(0)" class="showProject" data-projet="1">Raphaël Grant</a>
-					</p>
-					<span></span>
-					<span></span>
-					
-				</article>
+				<?php 
 
-				<article>
-					<h1><a href="javascript:void(0)" class="showProject" data-projet="2">Projet <span>Design</span></a></h1>
-					<p>Par: <a href="javascript:void(0)" class="showProject" data-projet="2">Christian Dugas</a></p>
-					<span></span>
-					<span></span>
-				</article>
+				$posts = get_posts(array(
+					'posts_per_page'	=> 5,
+					'post_type'			=> 'projets'
+				));
 
-				<article>
-					<h1><a href="javascript:void(0)" class="showProject" data-projet="3">Projet <span>3D</span></a></h1>
-					<p>Par: <a href="javascript:void(0)" class="showProject" data-projet="3">Jean-Philippe Lafontaine</a></p>
-					<span></span>
-					<span></span>
-				</article>
+				if($posts):
 
-				<article>
-					<h1><a href="javascript:void(0)" class="showProject" data-projet="4">Projet <span>vidéo</span></a></h1>
-					<p>Par: <a href="javascript:void(0)" class="showProject" data-projet="4">François Arsenault</a></p>
-					<span></span>
-					<span></span>
-				</article>
+					foreach ($posts as $post):
+
+						setup_postdata($post); ?>
+
+						<article class="selected">
+							<div class="hoverContainer">
+								<span></span>
+								<span></span>
+							</div>
+							<div class="contentContainer">
+								
+								<h1><a href="javascript:void(0)" class="showProject" data-projet="0">Fancy <span>Robot</span></a></h1>
+								<p>Par: <a href="javascript:void(0)">Marc-Antoine Gautreau</a></p>
+							</div>
+							
+						</article>
+
+				<?php 
+					endforeach;
+					wp_reset_postdata();
+
+				endif;
+
+				?>
 			</div>
 		</div>
 

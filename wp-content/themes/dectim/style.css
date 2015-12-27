@@ -621,10 +621,10 @@ header nav ul li:hover {
   transform: translateY(95%);
 }
 
-.projets-list > article:hover > .hoverContainer > span:first-of-type {
+.projets-list article:hover > .hoverContainer > span:first-of-type {
   transform: translateY(85%) skewY(15deg);
 }
-.projets-list > article:hover > .hoverContainer > span:last-of-type {
+.projets-list article:hover > .hoverContainer > span:last-of-type {
   transform: translateY(85%) skewY(-15deg);
 }
 

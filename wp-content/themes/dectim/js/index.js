@@ -3,6 +3,18 @@ var menu;
 jQuery(document).ready(function(){
   
   var clic = true;
+
+	$('body').on('click', '.showProject', function () {
+	    showProject(this);
+	});
+
+	$('body').on('click', '.openVideo', function () {
+	    showVideo(this);
+	});
+
+	$('body').on('click', '.overlayExit', function () {
+	    hideOverlay();
+	});
   
   // Var for initial nav offset and height
   var navOffset = $("nav").offset().top;
@@ -105,5 +117,42 @@ function removeFixed(){
 	TweenLite.to(menu, 0.5, {y:"0%", ease:Power2.easeOut});
 }
 
+// OverLay Endler
+
+function showProject($projet) {
+
+    disableScroll();
+
+    $index = jQuery($projet).data('projet');
+
+    $content = "";
+
+    jQuery('.overlay').addClass('visible').removeClass('hidden');
+
+    jQuery('.overlayContent').addClass('grow-off');
+
+    //jQuery('.overlayContent > .content').html($content);
+
+}
+
+function hideOverlay() {
+
+    enableScroll();
+
+    jQuery('.overlay').removeClass('visible').one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend',function(){
+        jQuery(this).addClass('hidden');
+    });
+ jQuery('.overlayContent').removeClass('grow-off');
+  //  jQuery('.overlayContent > .content').empty();
+
+}
+
+function disableScroll() {
+    jQuery('body').addClass('overflowhidden');
+}
+
+function enableScroll() {
+    jQuery('body').removeClass('overflowhidden');
+}
 
 })(jQuery);

@@ -718,7 +718,7 @@ header{
 	
 }
 
-.projets-list > article:hover{
+.projets-list article:hover{
 	>.hoverContainer>span{
 		&:first-of-type{
 			transform: translateY(85%) skewY(15deg);

@@ -16,6 +16,32 @@
 
 <body class="<?php if(is_front_page()){ echo "Accueil"; }else{ echo "contenu"; }; ?>">
 
+<div class="overlay hidden">
+    <div class="overlayExit"></div>
+    <div class="overlayOverflow">
+        <div class="flexRow">
+            <div class="overlayContent grow-off">
+                <span class="overlayExit">
+                    <span><span></span></span>
+                    <span><span></span></span>
+                </span>
+
+                <div class="content">
+                	<header><p>Projet scolaire</p><span><a href='#'>Marc-Antoine Gautreau</a><img src='img/mag.jpg' alt='MarcAntoine'></span></header>
+                	<div><img src='img/fancyrobot.png' alt='projetimg'></div>
+                	<h1>Fancy <span>Robot</span></h1>
+                	<div><h2 class='marc'>MARC-ANTOINE GAUTREAU</h2><h2>FLASH CC 2015</h2>
+                		<h2>COURS: INTÉGRATION EN LIGNE III</h2>
+                		<a href=''><p>Visitez le portfolio de Marc-Antoine</p></a>
+                	</div>
+             
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
 <header>
 	<div class='slideTop'></div>
 	<div class='bgHeaderSlide'>
