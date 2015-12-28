@@ -1,29 +1,17 @@
 <?php
-
-// check if the repeater field has rows of data
-if( have_rows('list_item') ): ?>
-
- 	<div class='tp-box-list'>
- 	
-	<?php
-
- 	// loop through the rows of data
-    while ( have_rows('list_item') ) : the_row(); ?>
-       
-			<div>
-				<p><?php the_sub_field('item'); ?></p>
+	if( have_rows('list_item') ):
+?>
+		<div class='tp-box-list'>
+			<div class="Wrapper">
+				<ul>
+				<?php
+					while ( have_rows('list_item') ) : the_row();
+				?>
+					<li><p><?php the_sub_field('item'); ?></p></li>
+				<?php endwhile; ?>
+				</ul>
 			</div>
-
-    <?php endwhile; ?>
-
-    </div>
-
+		</div>
 <?php
-
-else :
-
-    // no rows found
-
-endif;
-
+	endif;
 ?>

@@ -80,13 +80,19 @@ jQuery(document).ready(function(){
 	$("body.contenu input[type=search]").on("keyup", function()
 	{
 		//Récupérer la valeur
-		var param = $(this).prop("value");
+		var param = this.value.trim();
+		
+		//Trouver le nombre d'étudiants
+		var nbreEtudiants = jQuery(".grille section").children().length;
+		
+		//Trouver l'année en cours
+		var annee = $("var").text();
 		
 		//Faire la recherche avec au moins deux lettres
-		if (param.length > 1)
+		if (param.length > 1 || (param.length == 0 && nbreEtudiants <= 1))
 		{
 			//Faire une requête vers le serveur
-			var rqt = jQuery.get(ajaxurl, {action:"RechercheEtudiants", "mot-cle":param}, function(response)
+			var rqt = jQuery.get(ajaxurl, {action:"RechercheEtudiants", "mot-cle":param, "annee":annee}, function(response)
 			{
 				jQuery(".grille section").html(response);
 			});

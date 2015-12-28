@@ -55,9 +55,9 @@ $light-gray: #989ea2;
 }
 
 @mixin AlignSelf($Prop){
-	-webkit-align-items: $Prop;
-	-ms-flex-align: $Prop;
-	    align-items: $Prop;
+	-webkit-align-self: $Prop;
+	-ms-align-self: $Prop;
+	    align-self: $Prop;
 }
 
 @mixin FlexWrap($Prop){
@@ -77,6 +77,11 @@ $light-gray: #989ea2;
 @mixin Appearance($Value:none){
 	-webkit-appearance: $Value;
 		-moz-appearance: $Value;
+}
+
+@mixin Transform($Value){
+	-webkit-transform: $Value;
+			transform: $Value;
 }
 
 /******************************
@@ -197,6 +202,55 @@ body.Accueil > main:nth-last-of-type(1), body.contenu > section:nth-last-of-type
 	margin-bottom: -33vh;
 }
 
+var{
+	display: none;
+}
+
+//Triangles
+.conteneurTriangles{
+	position: relative;
+	z-index: -1;
+	height: 150px;
+	
+	div{
+		bottom: 0;
+		height: 0;
+		overflow: hidden;
+		padding-bottom: 33vw;
+		position: absolute;
+		width: 100%;
+		
+		@media screen and (min-width: 1200px){
+			padding-bottom: 338px;
+		}
+		
+		&::after{
+			border-bottom: 33vw solid $accent-color-full;
+			content: "";
+			display: block;
+			height: 0;
+			width: 0;
+			
+			@media screen and (min-width: 1200px){
+				border-bottom: 388px solid $accent-color-full;
+			}
+		}
+	}
+	
+	div:first-of-type{
+		&::after{
+			border-right: 100vw solid transparent;
+		}
+	}
+	
+	div:last-of-type{
+		&::after{
+			border-bottom-color: $accent-color;
+			border-left: 100vw solid transparent;
+		}
+	}
+}
+
 /******************************
 	Formulaires
 ******************************/
@@ -236,8 +290,7 @@ header{
 		position:relative;
 		z-index:5;
 		left:50%; /* IE 9 */
-		-webkit-transform: translateX(-50%) skew(-8deg, -3deg); /* Safari */
-		transform: translateX(-50%) skew(-8deg, -3deg); /* Standard syntax */
+		@include Transform(translateX(-50%) skew(-8deg, -3deg));
 		
 		>a{
 			display: block;
@@ -249,8 +302,7 @@ header{
 			box-sizing:border-box; /* IE 9 */
 			top: 50%;
 			left: 50%;
-			-webkit-transform: translate(-50%, -50%) skew(8deg, 3deg); /* Safari */
-			transform: translate(-50%, -50%) skew(8deg, 3deg); /* Standard syntax */
+			@include Transform(translate(-50%, -50%) skew(8deg, 3deg));
 			width:130px;
 			position:relative;
 		}
@@ -261,7 +313,7 @@ header{
 		position:absolute;
 		z-index: 10;
 		top:50%;
-		transform: translateY(-50%);
+		@include Transform(translateY(-50%));
 		right:10px;
 
 		p{
@@ -314,9 +366,7 @@ header{
 	}
 
 	nav{
-		display: -webkit-flex;
-		display: -ms-flexbox;
-		display: flex;
+		@include Flex();
 		background-color:transparent;
 		margin-left:auto;
 		margin-right:auto;
@@ -344,17 +394,9 @@ header{
 			margin:0;
 			padding:0;
 			@include Flex();
-			//display: -webkit-flex;
-			//display: flex;
-			-webkit-flex-direction: row;
-			-ms-flex-direction: row;
-			    flex-direction: row;
-			-webkit-align-items: center;
-			-ms-flex-align: center;
-			    align-items: center;
-			-webkit-justify-content: center;
-			-ms-flex-pack: center;
-			    justify-content: center;
+			@include FlexDirection(row);
+			@include AlignItems(center);
+			@include JustifyContent(center);
 
 			li{
 				height: 100%;
@@ -425,8 +467,7 @@ header{
 			    width: 115px;
 			    left: 15px;
 			    top: -10px;
-			    -webkit-transform: skew(-8deg, -3deg);
-			    transform: skew(-8deg, -3deg);
+				@include Transform(skew(-8deg, -3deg));
 
 				img{
 					width:70%;
@@ -479,8 +520,7 @@ header{
 		    width: 115px;
 		    left: 15px;
 		    top: -10px;
-		    -webkit-transform: skew(-8deg, -3deg);
-		    transform: skew(-8deg, -3deg);
+			@include Transform(skew(-8deg, -3deg));
 
 			img{
 				width:70%;
@@ -511,8 +551,7 @@ header{
 			left: 50%;
 			top: 50%;
 			position: absolute;
-			-webkit-transform: translate(-50%, -50%) skew(-8deg, -3deg);
-		    transform: translate(-50%, -50%) skew(-8deg, -3deg);
+			@include Transform(translate(-50%, -50%) skew(-8deg, -3deg));
 		}
 
 		nav{
@@ -571,7 +610,7 @@ header{
 	.videoWrapper {
 	    position: absolute;
 	    top: 50%;
-	    transform: translateY(-50%);
+		@include Transform(translateY(-50%));
 	    padding-bottom: 56.25%;
 	    padding-top: 25px;
 	    width: 100%;
@@ -586,7 +625,7 @@ header{
 	    position: absolute;
 	    top: 0px;
 	    left: 50%;
-	    transform: translateX(-50%);
+	    @include Transform(translateX(-50%));
 	    height: 100%;
 	    min-width: 100%;
 	}
@@ -715,12 +754,12 @@ header{
 		transition: transform 0.5s;
 		
 		&:first-of-type{
-			transform: translateY(95%);
+			@include Transform(translateY(95%));
 			background-color: $accent-color-dark;
 		}
 		&:last-of-type{
 			background-color: $accent-color;
-			transform: translateY(95%);
+			@include Transform(translateY(95%));
 		}
 	}
 
@@ -731,11 +770,11 @@ header{
 .projets-list article:hover{
 	>.hoverContainer>span{
 		&:first-of-type{
-			transform: translateY(85%) skewY(15deg);
+			@include Transform(translateY(85%) skewY(15deg));
 		}
 
 		&:last-of-type{
-			transform: translateY(85%) skewY(-15deg);
+			@include Transform(translateY(85%) skewY(-15deg));
 		}
 	}
 }
@@ -772,8 +811,7 @@ header{
 		aside{
 			position: absolute;
 			top: 50%;
-			-webkit-transform: translateY(-50%);
-			        transform: translateY(-50%);
+			@include Transform(translateY(-50%));
 			z-index: 1;
 		}
 
@@ -797,8 +835,7 @@ header{
 			@include SetFont(208);
 			line-height: 1;
 			margin: 0 30px 15px;
-			-webkit-transform: translateY(-19px);
-			        transform: translateY(-19px);
+			@include Transform(translateY(-19px));
 		}
 
 		@media screen and (min-width: 1300px){
@@ -1015,8 +1052,12 @@ body.contenu{
 		z-index: 0;
 
 		&:nth-of-type(1){
-			padding-top:20%;
+			padding-top: 100px;
 			background-color: $light-bg;
+			
+			@media screen and (min-width: 521px){
+				padding-top: 20%;
+			}
 		}
 
 		/*&:nth-child(n+3){
@@ -1024,11 +1065,12 @@ body.contenu{
 		}*/
 
 		.secHeader{
+			font-size: 0;
 			text-align:center;
 			width:100%;
-			font-size: 0;
+			
 			>div{
-				max-width:45%;
+				//max-width:45%;
 				display: inline-block;
 				margin:0 auto;
 				padding:30px 50px 10px 50px;
@@ -1044,8 +1086,7 @@ body.contenu{
 					top: 20px;
 					left: 50%;
 					z-index: -1;
-					-webkit-transform: translateX(-50%) skew(-5deg, -2deg);
-					        transform: translateX(-50%) skew(-5deg, -2deg);
+					@include Transform(translateX(-50%) skew(-5deg, -2deg));
 				}
 
 				p{
@@ -1060,15 +1101,15 @@ body.contenu{
 			}
 			h1{
 				@extend .boxH1;
-				padding: 25px 0;
+				padding: 25px;
 				text-align: center;
-				width: 50%;
-				margin:0 25%;
+				//width: 50%;
+				margin:0 auto;
 				font-weight: 700;
 			}
 		}
 		.secContent{
-			width:65%;
+			max-width: 1200px;
 			margin: 0 auto;
 		}
 
@@ -1084,36 +1125,6 @@ body.contenu{
 
 			}
 		}
-
-		.triangleContainer{
-		    position: relative;
-		    z-index: -1;
-		    height: 150px;
-		}
-
-		.triangle{
-			
-			width:100%;
-			position: absolute;
-			bottom: 0;
-
-			> div{
-				width: 0;
-				height: 0;
-				border-style: solid;
-				z-index:3;
-			}
-
-			&:first-of-type > div{
-				border-width: 388px 0 0 99vw;
-				border-color: transparent transparent transparent $accent-color-dark;
-			}
-
-			&:last-of-type > div{
-				border-width: 0 0 388px 99vw;
-				border-color: transparent transparent $accent-color transparent;
-			}
-		}
 	}
 }
 
@@ -1121,67 +1132,66 @@ body.contenu{
 	Footer
 ******************************/
 footer{
+	margin-top: 260px;
 	width:100%;
-	background:#385260;
-	margin-top: 50vh;
 	
-	.footerBack{
-		position:absolute;
-		width: 100%;
-		height: 0;
-		padding-bottom: 0%;
-		float:left;
-	}
-	.footerBack:after{
-		content: "";
-		display: block;
-		width: 0;
-		height: 0;
-		margin-top: -49.5vh;
-		border-right: 55vw solid transparent;
-		border-bottom: 50vh solid #273A42;
-	}
-	.footerFront{
-		position:absolute;
-		padding-bottom:0;
-		width: 100%;
-		height: 0;
-		padding-top: 0%;
-	}
-
-	.footerFront:after {
-		content: "";
-		display: block;
-		width: 0;
-		height: 0;
-		margin-top: -49.5vh;
-		border-top: 50vh solid transparent;
-		float:right;
-		border-right: 99vw solid #385260;
-	}
-
-	.content{
-		width:100%;
-		position: relative;
-		height: 30vh;
+	.conteneurTriangles{
+		z-index: 0;
 		
-		.sociaux{
+		div{
+			padding-bottom: 45.8vw;
+			
+			@media screen and (min-width: 1200px){
+				padding-bottom: 548px;
+			}
+		
+			&::after{
+				border-bottom: 45.8vw solid $main-color-dark;
+				
+				@media screen and (min-width: 1200px){
+					border-bottom: 548px solid $main-color-dark;
+				}
+			}
+		}
+		
+		div:last-of-type{
+			&::after{
+				border-bottom-color: $main-color-light;
+			}
+		}
+	}
+
+	> div:nth-child(2){
+		background-color: $main-color-light;
+		height: 270px;
+		
+		/*Réseaux sociaux*/
+		> div:nth-child(1){
+			left: 0;
 			position: absolute;
 			margin-top: -45vh;
 		}
 
-		.logos{
-			position: absolute;
-			bottom: 75px;
-			right: 75px;
+		/*Logos*/
+		> div:nth-child(2){
+			height: 100%;
+			
+			.Wrapper{
+				@include AlignItems(center);
+				@include Flex();
+				height: 100%;
+				@include JustifyContent(flex-end);
+			}
+			
+			img{
+				max-width: 100%;
+			}
 		}
-
+	
+		/*Réseaux sociaux*/
 		ul{
 			height:500px;
-			width:100%;
 			list-style-type:none;
-			margin:0;
-			padding:0;
 			@include Flex();
 			@include FlexDirection(column);
 			@include AlignItems(flex-start);
@@ -1193,12 +1203,21 @@ footer{
 				padding:10px 50px;
 				background-color:#fb6542;
 				color:white;
-				h3 {
-					font-size:2.8rem;
-					font-weight:600;
+				
+				a{
+					@include SetFont(30, 600);
 					text-transform: uppercase;
+					
+					@media screen and (min-width: 561px){
+						@include SetFont(36);
+					}
+					
+					@media screen and (min-width: 561px){
+						@include SetFont(50);
+					}
 				}
-			}	
+			}
+			
 			.facebook:hover{
 				background-color:#3e5b98;
 			}
@@ -1206,16 +1225,17 @@ footer{
 			.youtube:hover{
 				background-color:#e02a20;
 			}
+			
 			.deviantart:hover{
-
-				background-color:#3371b7;
-			}
-			.linkedin:hover{
-
 				background-color:#05cc47;
 			}
+			
+			.linkedin:hover{
+				background-color:#3371b7;
+			}
+			
 			.behance:hover{
-				background-color: #1769ff;
+				background-color: #3371b7;
 			}
 		}
 	}
@@ -1226,79 +1246,71 @@ Template Parts
 -------------------------- */
 
 // TEMPLATE PART title
-
 .tp-title{
 	@extend .boxH1;
-	padding: 10px 0;
+	box-sizing: border-box;
+	padding: 10px 4.5%;
 	text-align: center;
-	width: 77%;
 	margin:0 auto;
-	-webkit-transform: translateY(-50%);
-	transform: translateY(-50%);
-	
-	@include font-size(70);
-	font-weight: 700;
+	@include Transform(translateY(-50%));
+	@include SetFont(40, 700);
 	position:relative;
+	
+	@media screen and (min-width: 371px){
+		@include SetFont(50);
+	}
+	
+	@media screen and (min-width: 441px){
+		@include SetFont(60);
+	}
+	
+	@media screen and (min-width: 701px){
+		@include SetFont(70);
+	}
 }
 
 // TEMPLATE PART links
 
 .tp-links{ 
-	margin:50px 0;
+	margin-bottom: 50px;
 	text-align:center;
-
-	a{
-		display: inline-block;
-		text-align:center;
-		background-color:$main-color;
-		padding:20px 5%;
-		margin: 0 5px;
-		font-size:2rem;
-		font-weight: 700;
-		text-transform: uppercase;
+	
+	a:first-child:not(:last-child){
+		background-color: $accent-color;
 		
 		&:hover{
-			background-color:$accent-color;
+			background-color: lighten($accent-color, 5%);
 		}
-
-		&.highlight{
-			background-color:$accent-color;
-
-			&:hover{
-				background-color:$accent-color-full;
-			}
-		}
-
 	}
 }
+
+/*404*/
 .p404{
-padding-top:45vh;
-height:30vh;
-
-
-		h1{
-			color:$main-color;
-			text-align:center;
-			font-weight:200;
-			span{
-
-				font-weight:700;
-			}
-
+	padding-top:45vh;
+	height:30vh;
+	
+	h1{
+		color:$main-color;
+		text-align:center;
+		font-weight:200;
+		
+		span{
+			font-weight:700;
 		}
-		p{
-			text-align:center;
+	}
+	
+	p{
+		text-align:center;
 		a{
 			text-decoration: underline;
 			font-size:1rem;
 			color:grey;
-		}}
+		}
+	}
 }
 
 // TEMPLATE PART text
-
 .tp-text{
-	
 	width:100%;
 	margin: 50px 0;
 	
@@ -1310,8 +1322,7 @@ height:30vh;
 		width: 100%;
 	}
 
-	&.rightBracket, &.leftBracket{
-		
+	&.rightBracket, &.leftBracket{	
 		@include flexbox();
 		@include align-items(center);
 
@@ -1322,9 +1333,6 @@ height:30vh;
 			font-weight:400;
 			font-family: "Roboto", sans-serif;
 		}
-
-
-
 	}
 
 	&.rightBracket::after{
@@ -1352,38 +1360,42 @@ height:30vh;
 }
 
 // TEMPLATE PART box-list
-
 .tp-box-list{
 	width:100%;
 	margin-top:10%;
-
-	div:hover{
-
-		background-color:$main-color-dark;
-		p{ color:white;
-			span{
-				font-size:2rem;
-				font-weight: 900;
-
-			}
-		}	
-	}
-	div{ 	
-
+	
+	li{
 		margin-top:5px;
 		padding:10px 20px;
 		background-color:#f2f2f2;
 		border-bottom:5px solid $accent-color;
-		p{ color:black;
+		list-style-type: none;
+		
+		p{
+			color:black;
 			font-weight: 400;
 			vertical-align: text-bottom;
+			
 			span{
 				vertical-align: none;
 				font-size:2rem;
 				font-weight: 900;
 				text-transform: uppercase;
 			}
-		}	
+		}
+		
+		&:hover{
+			background-color:$main-color-dark;
+			
+			p{
+				color:white;
+				
+				span{
+					font-size:2rem;
+					font-weight: 900;
+				}
+			}
+		}
 	}
 }
 
@@ -1653,9 +1665,14 @@ overlay
 		overflow: hidden;
 		position: relative;
 		width: 37%;
-
+		
+		@media screen and (max-width: 475px){
+			max-width: 300px;
+			width: 100%;
+		}
+	
 		@media screen and (max-width: 720px){
-			min-width: 230px;
+			min-width: 200px;
 		}
 
 		@media screen and (min-width: 721px){
@@ -1669,6 +1686,10 @@ overlay
 		&:nth-of-type(odd){
 			@media screen and (max-width: 720px){
 				margin-right: 30px;
+			}
+			
+			@media screen and (max-width: 475px){
+				margin-right: 0;
 			}
 		}
 		
@@ -1685,7 +1706,7 @@ overlay
 		
 		&:focus{
 			div{
-				transform: rotateX(0);
+				@include Transform(rotateX(0));
 			}
 		}
 
@@ -1733,12 +1754,12 @@ overlay
 			background-color: $main-color;
 			backface-visibility: hidden;
 			box-sizing: border-box;
-			display: flex;
+			@include Flex();
 			@include FlexDirection(column);
 			height: 100%;
 			padding: 18px 24px;
 			position: absolute;
-			transform: rotateY(90deg);
+			@include Transform(rotateY(90deg));
 			transition: transform 0.5s;
 			width: 100%;
 			z-index: 3;

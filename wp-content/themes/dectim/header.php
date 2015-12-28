@@ -54,7 +54,7 @@
 			<img id='hamburgerImg' src='<?php echo bloginfo("template_url")?>/img/hamburger.svg' alt='Burger'>
 		</div>
 		<div class='logoBox'>
-			<a href='index.html'>
+			<a href='<?php echo home_url(); ?>'>
 				<img src='<?php echo bloginfo("template_url")?>/img/logo.png' alt='logo'>	
 			</a>
 		</div>

@@ -15,8 +15,14 @@
 				{
 					#Trouver l'année des finissants
 					$annee = get_sub_field("annee");
-
-					if ($annee === 0) $annee = date("Y");
+					
+					if ($annee === "0")
+					{
+						$annee = currentYearFinissants();
+					}
+					
+					#Variable d'année pour ajax
+					echo "<var>" . $annee . "</var>";
 					
 					getEtudiants($annee);
 				}
