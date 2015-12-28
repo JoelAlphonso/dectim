@@ -1127,6 +1127,7 @@ footer {
 }
 
 footer .conteneurTriangles {
+  pointer-events: none;
   z-index: 0;
 }
 
