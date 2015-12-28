@@ -194,6 +194,18 @@ add_action(
 	}
 );
 
+#Permet de retourner l'année des finissants en cours
+function currentYearFinissants()
+{
+	$currentYear = date("Y");
+	$currentMonth = date("m");
+	
+	#Si on est dans le mois d'août et plus, augmenter l'année de 1
+	if ($currentMonth >= 8) $currentYear ++;
+	
+	return $currentYear;
+}
+
 #Ajout de l'AJAX pour la grille d'étudiants
 class RechercheEtudiants
 {
@@ -206,13 +218,10 @@ class RechercheEtudiants
 	function RechercherEtudiants()
 	{	
 		$mots = $_REQUEST["mot-cle"];
-		$annee = isset($_REQUEST["annee"]) ? $_REQUEST["annee"]:"2016";
+		$annee = isset($_REQUEST["annee"]) ? $_REQUEST["annee"]:date("Y");
 		
 		getEtudiants($annee, $mots);
 		
-		#echo "<p style='text-align: center;'>Votre recherche ne rapporte aucun résultat</p>";
-		
-		wp_reset_postdata();
 		die();
 	}
 }
@@ -220,7 +229,8 @@ class RechercheEtudiants
 $Rch = new RechercheEtudiants();
 
 function getEtudiants($annee, $recherche="")
-{	
+{
+	#Arguments de base
 	$args = array(
 		"post_type" => "etudiant_post_type",
 		"nopaging" => true,
@@ -238,16 +248,20 @@ function getEtudiants($annee, $recherche="")
 	
 	#Commencer une query WP
 	$query = new WP_Query($args);
-
+	
+	#Garder le nombre de posts retenus en mémoire
+	$nbre = 0;
+	
 	#Aller chercher tous les étudiants
 	if ($query->have_posts())
 	{
-		$i = 0;
+		$i = 1;
 		
 		while ($query->have_posts())
 		{
 			$query->the_post();
 			
+			#Aller chercher le nom
 			$nom = explode(" ", get_the_title());
 			$prenom = array_shift($nom);
 			$url = empty(get_field("url_portfolio")) ? "javascript:void(0)" : get_field("url_portfolio");
@@ -286,17 +300,23 @@ function getEtudiants($annee, $recherche="")
 				</article>
 			<?php
 				$i++;
+				$nbre++;
 		}
 	}
-
-	#Ajouter des fillers
-	for ($i = 0; $i < 3; $i++):
-	?>
-		<article class="filler">
-		</article>
-	<?php
-	endfor;
-
+	
+	#S'il y a des articles
+	if ($nbre > 0):
+		#Ajouter des fillers
+		for ($k = 0; $k < 3; $k++):
+		?>
+			<article class="filler">
+			</article>
+		<?php
+		endfor;
+	else:
+		echo "<p style='text-align: center;width: 100%'>Votre recherche ne rapporte aucun résultat</p>";
+	endif;
+	
 	wp_reset_postdata();
 }
 

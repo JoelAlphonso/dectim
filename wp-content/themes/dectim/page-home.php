@@ -42,8 +42,8 @@
 									</text>
 								</svg>
 					<?php
-						endif;
 							endif;
+						endif;
 					?>
 				</div>
 			</div>
