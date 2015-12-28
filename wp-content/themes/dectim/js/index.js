@@ -130,7 +130,25 @@ function showProject($projet) {
 
     jQuery('.overlayContent').addClass('grow-off');
 
-    //jQuery('.overlayContent > .content').html($content);
+    $content += "<div class='coverImageDiv'><img src='" + projets[$index].image +"' alt='projetimg'></div>";
+    $content += "<div class='overWrapper'>";
+    $content += "<h1>" + projets[$index].titre +"</h1>";
+    $content += "<div class='projectOverlayContent'>";
+    $content += "<ul>";
+    $(projets[$index].auteur).each(function(index, auteur) {
+    	$content += "<li><a href='"+ projets[$index].portfolio[index] +"'><img src='" +  projets[$index].auteurImg[index] + "'><p class='name'>"+ auteur +"</p></a></li>";
+    });
+    $content += "</ul>";
+    $content += "<ul>"
+    $(projets[$index].logiciels).each(function(index, logiciel) {
+    	$content += "<li><p>"+ logiciel +"</p></li>";
+    });
+    $content += "</ul>"
+    $content += "<ul><li><p>"+ projets[$index].annee +"</p></li></ul>"
+    $content += "</div>"
+    $content += "</div>"
+
+    jQuery('.overlayContent > .content').html($content);
 
 }
 

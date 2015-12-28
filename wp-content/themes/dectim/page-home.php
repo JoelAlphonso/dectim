@@ -1,4 +1,11 @@
 <?php /* Template Name: Home page */ ?>
+
+<script type="text/javascript">
+	
+	var projets = [];
+
+</script>
+
 <?php get_header(); ?>
 	<section class="hero">
 			<div class="videoContainer">
@@ -76,23 +83,84 @@
 				));
 
 				if($posts):
+					
+					$i = 0;
 
 					foreach ($posts as $post):
 
-						setup_postdata($post); ?>
+						setup_postdata($post);
+
+						// check if the repeater field has rows of data
+						$posts2 = get_field('students_relation');
+						$auteurs = "";
+						$portfolio = "";
+						$etuPic = "";
+						$auteursArray = [];
+						$portfolioArray = [];
+						$etuPicArray = [];
+						if($posts2): 
+							
+							foreach ($posts2 as $cs):
+								
+						 		$auteurs .= '"'. get_the_title( $cs ) .'",';
+						 		$portfolio .= '"'. get_field( "url_portfolio", $cs ) .'",';
+						 		$etuPicArray = get_field( "photo_etudiant", $cs );
+						 		$etuPic .= '"'. $etuPicArray['url'] .'",';
+
+						 		$auteursArray[] = get_the_title( $cs );
+								$portfolioArray[] = get_field( "url_portfolio", $cs );
+								$etuPicArray[] = $etuPicArray['url'];
+
+						    endforeach;
+
+						endif;
+
+						$logicielsList = get_the_terms($post->ID, "Logiciels");
+						$logiciels = "";
+
+				 		foreach($logicielsList as $logiciel){
+				 			$logiciels .= '"'. $logiciel->name .'",';
+				 		}
+
+					?>
+
+						<script type="text/javascript">
+
+							projets.push({
+								"index": "<?php echo $i; ?>",
+								"titre": "<?php the_title(); ?>",
+								"image": "<?php the_field('image_projet')?>",
+								"auteur": [<?php echo $auteurs; ?>],
+								"portfolio": [<?php echo $portfolio; ?>],
+								"auteurImg": [<?php echo $etuPic; ?>],
+								"logiciels": [<?php echo $logiciels; ?>],
+								"annee": "<?php the_field('annee_production')?>"
+							});
+
+						</script>
 						
-							<article class="selected showProject" data-projet="0">
+							<article class="selected showProject" data-projet="<?php echo $i; ?>">
 								<div class="hoverContainer">
 									<span></span>
 									<span></span>
 								</div>
 								<div class="contentContainer">
 									<h1><?php the_title(); ?></h1>
-									<p>Par: <a href="javascript:void(0)">Marc-Antoine Gautreau</a></p>
+									<div>
+										<p>Par: </p>
+										<ul>
+										
+										<?php foreach ($auteursArray as $auteur): ?>
+											<li><p><?php echo $auteur?></p></li>
+										<?php endforeach; ?>
+										
+										</ul>
+									</div>
 								</div>
 							</article>
 
-				<?php 
+				<?php
+					$i++;
 					endforeach;
 					wp_reset_postdata();
 

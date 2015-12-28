@@ -261,7 +261,8 @@ header{
 		position:absolute;
 		z-index: 10;
 		top:50%;
-		transform: translateY(-50%);
+		-webkit-transform: translateY(-50%);
+		        transform: translateY(-50%);
 		right:10px;
 
 		p{
@@ -571,7 +572,8 @@ header{
 	.videoWrapper {
 	    position: absolute;
 	    top: 50%;
-	    transform: translateY(-50%);
+	    -webkit-transform: translateY(-50%);
+	            transform: translateY(-50%);
 	    padding-bottom: 56.25%;
 	    padding-top: 25px;
 	    width: 100%;
@@ -586,7 +588,8 @@ header{
 	    position: absolute;
 	    top: 0px;
 	    left: 50%;
-	    transform: translateX(-50%);
+	    -webkit-transform: translateX(-50%);
+	            transform: translateX(-50%);
 	    height: 100%;
 	    min-width: 100%;
 	}
@@ -712,15 +715,19 @@ header{
 		width: 100%;
 		height: 100%;
 		position: absolute;
+		transition: -webkit-transform 0.5s;
 		transition: transform 0.5s;
+		transition: transform 0.5s, -webkit-transform 0.5s;
 		
 		&:first-of-type{
-			transform: translateY(95%);
+			-webkit-transform: translateY(95%);
+			        transform: translateY(95%);
 			background-color: $accent-color-dark;
 		}
 		&:last-of-type{
 			background-color: $accent-color;
-			transform: translateY(95%);
+			-webkit-transform: translateY(95%);
+			        transform: translateY(95%);
 		}
 	}
 
@@ -731,23 +738,23 @@ header{
 .projets-list article:hover{
 	>.hoverContainer>span{
 		&:first-of-type{
-			transform: translateY(85%) skewY(15deg);
+			-webkit-transform: translateY(90%) skewY(10deg);
+			        transform: translateY(90%) skewY(10deg);
 		}
 
 		&:last-of-type{
-			transform: translateY(85%) skewY(-15deg);
+			-webkit-transform: translateY(85%) skewY(-15deg);
+			        transform: translateY(85%) skewY(-15deg);
 		}
 	}
 }
 
-.contentContainer{
-	position: relative;
-	z-index: 2;
-}
 
 .projets{
 	overflow: hidden;
 	text-transform: uppercase;
+	
+
 
 	.Wrapper >  h1{
 		color: $main-color;
@@ -758,7 +765,7 @@ header{
 		background-color: $accent-color-full;
 		display: none;
 		margin: 95px 0 130px;
-		
+
 		@media screen and (min-width: 1000px){
 			display: block;
 		}
@@ -782,8 +789,10 @@ header{
 			max-height: 500px;
 			width: 100%;
 		}
+
+		
 	}
-	
+
 	> article .Wrapper{
 		@include AlignItems(center);
 		color: #fff;
@@ -822,6 +831,28 @@ header{
 		@include AlignItems(flex-end);
 		margin-top: 45px;
 		width: 10000%;
+
+		.contentContainer{
+			position: relative;
+			z-index: 2;
+
+			>div{
+				@include Flex();
+				margin-top: 10px;
+				p{
+					position: relative;
+					color: white;
+					margin-top: 5px;
+				}
+
+				ul{
+					margin-left: 5px;
+					li{
+						list-style: none;
+					}
+				}
+			}
+		}
 		
 		article{
 			background-color: $main-color;
@@ -1429,21 +1460,20 @@ overlay
 }
 
 .overlayContent {
-  max-height: 60%;
-  max-width: 60%;
-  margin-left:20%;
-  margin-right:20%;
+ 
+  max-width: 800px;
+  margin: 0 auto;
   background-color: $light-bg;
   position: relative;
   @include flex(1 1 auto);
 }
 
 .overlayContent > span.overlayExit {
-  width: 96px;
-  height: 96px;
+  width: 52px;
+  height: 52px;
   position: absolute;
   z-index: 10;
-  background-color: $main-color-dark;
+  // background-color: $main-color-dark;
   top: 0;
   left: 0;
   cursor: pointer;
@@ -1458,9 +1488,9 @@ overlay
   @include translate(-50%, -50%);
 
   > span {
-    height: 2px;
+    height: 5px;
     width: 15px;
-    background-color: $light-bg;
+    background-color: $accent-color;
     display: block;
     @include rotate(45);
     transition: height 0.3s, width 0.3s;
@@ -1468,6 +1498,7 @@ overlay
 
   &:last-of-type > span {
     @include rotate(-45);
+    background-color: $accent-color-dark;
   }
 
   position: absolute;
@@ -1483,50 +1514,77 @@ overlay
 .overlayContent > .content{
 
 	background-color:White;
+
+	.overWrapper{
+		width: 80%;
+		margin:0 auto;
+	}
+
 	h1{
 		background-color:$main-color-dark;
 		text-align:Center;
-		width:60%;
-		margin:0 auto;
-		left: 0;
-		right: 0;
-		margin-top:-25px;
-		position:absolute;
+		position:relative;
 		z-index:3;
-		padding:20px 0;
+		top: 0;
+		transform: translateY(-50%);
+		padding: 20px 0;
 	}
 	div{
 		width:100%;
-		height:300px;
-		overflow:hidden;
-		.marc{
 
-			margin-top:80px;
+		&.coverImageDiv{
+			overflow: hidden;
+			height:300px;
+		}
+
+		>div.projectOverlayContent{
+			padding-bottom: 50px;
+		}
+
+		.name{
+
 			font-weight:900;
 
 		}
-		h2{
-			font-weight:200;
-			padding:5px;
+		ul>li{
+			height: 50px;
+			margin-right: 10px;
 			margin-top:10px;
-			color:white;
-			width:60%;
-			margin-left:20%;
-			margin-right:20%;
 			background-color:$accent-color;
-			width:auto;
+			display: inline-block;
+
+			img{
+				height: 50px;
+				width: 50px;
+				display: inline-block;
+				vertical-align: middle;
+			}
+			
+			p{
+				padding:0px 10px;
+				display: inline-block;
+				color:white;
+				font-weight:200;
+				@include font-size(20);
+				text-transform: uppercase;
+				vertical-align: middle;
+				line-height: 50px;
+			}
+
+			a{
+				height: 100%;
+				background-color: $accent-color;
+				display: block;
+				transition: background-color 0.25s ease-in-out;
+				&:hover{
+					background-color: $accent-color-dark;
+				}
+			}
+
 		}
-		p{
-			text-decoration: underline;
-			color:grey;
-			font-size:0.8rem;
-			width:60%;
-			margin:0 20%;
-			margin-top:40px;
-		}
-		img{
-		width:100%;
-		
+
+		>img{
+			width:100%;
 		}
 	}
 	header{padding:30px 0;
@@ -1685,7 +1743,8 @@ overlay
 		
 		&:focus{
 			div{
-				transform: rotateX(0);
+				-webkit-transform: rotateX(0);
+				        transform: rotateX(0);
 			}
 		}
 
@@ -1731,15 +1790,21 @@ overlay
 		div{
 			@include AlignItems(center);
 			background-color: $main-color;
-			backface-visibility: hidden;
+			-webkit-backface-visibility: hidden;
+			        backface-visibility: hidden;
 			box-sizing: border-box;
+			display: -webkit-flex;
+			display: -ms-flexbox;
 			display: flex;
 			@include FlexDirection(column);
 			height: 100%;
 			padding: 18px 24px;
 			position: absolute;
-			transform: rotateY(90deg);
+			-webkit-transform: rotateY(90deg);
+			        transform: rotateY(90deg);
+			transition: -webkit-transform 0.5s;
 			transition: transform 0.5s;
+			transition: transform 0.5s, -webkit-transform 0.5s;
 			width: 100%;
 			z-index: 3;
 
