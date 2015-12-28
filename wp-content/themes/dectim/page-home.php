@@ -16,14 +16,28 @@
 					
 					<a href="#" class="button orange small">S'inscrire</a><!--
 					--><a href="#" class="button small">En savoir plus</a>
-
-					<svg viewBox="0 0 275 275" style="enable-background:new 0 0 275 275;">
-						<polygon points="275,275 0,275 275,0 "/>
-						<text style="fill: #fff;" transform="rotate(-45)">
-							<tspan x="0" y="245">Limite d'admission</tspan>
-							<tspan x="0" y="295">1<tspan class="sup">e</tspan> ma<tspan class="sub">r</tspan>s</tspan>
-						</text>
-					</svg>
+					
+					<?php
+						#Afficher le triangle si nécessaire
+						if (get_field("activer_triangle", "options")):
+							#Ajouter le triangle orange si la date est dans les limites
+							$dateDebut = strtotime(get_field("date_debut", "options"));
+							$dateFin = strtotime(get_field("date_fin", "options"));
+							$now = strtotime(date("Y-m-d"));
+							
+							if ($dateDebut - $now < 0 && ($dateFin === false || $dateFin - $now > 0)):
+						?>
+								<svg viewBox="0 0 275 275" style="enable-background:new 0 0 275 275;">
+									<polygon points="275,275 0,275 275,0 "/>
+									<text style="fill: #fff;" transform="rotate(-45)">
+										<tspan x="0" y="245"><?php the_field("premiere_ligne", "options"); ?></tspan>
+										<tspan x="0" y="295"><?php the_field("deuxième_ligne", "options"); ?></tspan>
+									</text>
+								</svg>
+					<?php
+						endif;
+							endif;
+					?>
 				</div>
 			</div>
 			
