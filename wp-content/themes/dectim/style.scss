@@ -1139,6 +1139,7 @@ footer{
 		z-index: 0;
 		
 		div{
+			margin-bottom: -1px; /*Bug affichage*/
 			padding-bottom: 45.8vw;
 			
 			@media screen and (min-width: 1200px){
@@ -1272,11 +1273,17 @@ Template Parts
 // TEMPLATE PART links
 
 .tp-links{ 
-	margin-bottom: 50px;
+	margin-bottom: 30px;
 	text-align:center;
 	
 	a:first-child:not(:last-child){
 		background-color: $accent-color;
+		margin-right: 30px;
+		
+		@media screen and (max-width: 411px){
+			margin-bottom: 30px;
+			margin-right: 0;
+		}
 		
 		&:hover{
 			background-color: lighten($accent-color, 5%);
@@ -1312,7 +1319,7 @@ Template Parts
 // TEMPLATE PART text
 .tp-text{
 	width:100%;
-	margin: 50px 0;
+	margin: 10px 0;
 	
 	&.centered{
 		text-align:center;
@@ -1325,24 +1332,30 @@ Template Parts
 	&.rightBracket, &.leftBracket{	
 		@include flexbox();
 		@include align-items(center);
-
-		&::after, &::before{
-			color:$accent-color;
-			
-			font-size:14rem;
-			font-weight:400;
-			font-family: "Roboto", sans-serif;
+	
+		@media screen and (min-width: 701px){
+			&::after, &::before{
+				color:$accent-color;
+				
+				font-size:14rem;
+				font-weight:400;
+				font-family: "Roboto", sans-serif;
+			}
 		}
 	}
 
 	&.rightBracket::after{
-		content: "}";
-		margin-left: 20px;
+		@media screen and (min-width: 701px){
+			content: "}";
+			margin-left: 20px;
+		}
 	}
 
 	&.leftBracket::before{
-		content: "{";
-		margin-right: 20px;
+		@media screen and (min-width: 701px){
+			content: "{";
+			margin-right: 20px;
+		}
 	}
 
 	.twoCol{
